@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Ex00/Ex00.iml" filepath="$PROJECT_DIR$/Ex00/Ex00.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ex01/Ex01.iml" filepath="$PROJECT_DIR$/Ex01/Ex01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ex02/Ex02.iml" filepath="$PROJECT_DIR$/Ex02/Ex02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ex03/Ex03.iml" filepath="$PROJECT_DIR$/Ex03/Ex03.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ex04/Ex04.iml" filepath="$PROJECT_DIR$/Ex04/Ex04.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ex05/Ex05.iml" filepath="$PROJECT_DIR$/Ex05/Ex05.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ex06/Ex06.iml" filepath="$PROJECT_DIR$/Ex06/Ex06.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ex07/Ex07.iml" filepath="$PROJECT_DIR$/Ex07/Ex07.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ex09/Ex09.iml" filepath="$PROJECT_DIR$/Ex09/Ex09.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ex10/Ex10.iml" filepath="$PROJECT_DIR$/Ex10/Ex10.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ex11/Ex11.iml" filepath="$PROJECT_DIR$/Ex11/Ex11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ex11a/Ex11a.iml" filepath="$PROJECT_DIR$/Ex11a/Ex11a.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ex12/Ex12.iml" filepath="$PROJECT_DIR$/Ex12/Ex12.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ICS3U1.iml" filepath="$PROJECT_DIR$/.idea/ICS3U1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lessons/Lesson00/Lesson00.iml" filepath="$PROJECT_DIR$/Lessons/Lesson00/Lesson00.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lessons/Lesson03/Lesson03.iml" filepath="$PROJECT_DIR$/Lessons/Lesson03/Lesson03.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Lessons/Lesson04/Lesson04.iml" filepath="$PROJECT_DIR$/Lessons/Lesson04/Lesson04.iml" />
+    </modules>
+  </component>
+</project>
