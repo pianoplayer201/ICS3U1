@@ -9,7 +9,14 @@ for delivery and the cost for delivery if it is eligible.
 public class Delivery {
     public static void main(String[] args) {
         //Variable Declaration
-        final int MAX_KILO = 27;
-        final int MAX_CM3 = 100 000;
+        final int MAX_CM3 = 100000;
+        final int WEIGHT_BRACKET1 = 5;
+        final int WEIGHT_BRACKET2 = 12;
+        final int WEIGHT_BRACKET3 = 20;
+        final int WEIGHT_BRACKET4 = 27;
+        final double PRICE_BRACKET1 = 3.00;
+        final double PRICE_BRACKET2 = 3.50;
+        final double PRICE_BRACKET3 = 4.00;
+        final double PRICE_BRACKET4 = 4.50;
     }
 }
