@@ -6,12 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="af234153-379b-400d-8be8-232693371c45" name="Changes" comment="ok">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex12/src/Stages.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex12/src/Stages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ex12/src/Delivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ex12/src/Delivery.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -42,6 +49,7 @@
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Application.SortThreeNumbers.executor": "Run",
+    "Application.Stages.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -68,7 +76,7 @@
       <workItem from="1712542879775" duration="86000" />
       <workItem from="1712547898159" duration="50000" />
       <workItem from="1712548010615" duration="18000" />
-      <workItem from="1712548037705" duration="1684000" />
+      <workItem from="1712548037705" duration="3170000" />
     </task>
     <task id="LOCAL-00001" summary="ok">
       <option name="closed" value="true" />
@@ -78,7 +86,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712548685429</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="ok">
+      <option name="closed" value="true" />
+      <created>1712550064956</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1712550064956</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
