@@ -16,6 +16,7 @@ public class Capital {
         Scanner sc = new Scanner(System.in);
 
         //Input
+
         System.out.print("What is the capital of Canada? \n > ");
         input = sc.nextLine();
 
