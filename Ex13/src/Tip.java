@@ -20,6 +20,25 @@ public class Tip {
         letterGrade = sc.nextLine();
 
         //Output
-        switch ()
+        System.out.println("TIP:");
+        switch (letterGrade){
+            case "A":
+                System.out.println("You're doing great, just get good sleep before tests!");
+                break;
+            case "B":
+                System.out.println("Not bad! Try doing the optional exercises posted on Brightspace.");
+                break;
+            case "C":
+                System.out.println("If you'd like to improve your mark, try catching up on exercises and review content before tests.");
+                break;
+            case "D":
+                System.out.println("Pay attention during Lessons, and keep up with exercises!");
+                break;
+            case "F":
+                System.out.println("Talk with your teacher, and see if you can redo any tests to raise your grade.");
+                break;
+            default:
+                System.out.println("ERROR: INVALID LETTER GRADE");
+        }
     }
 }
