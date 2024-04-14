@@ -27,6 +27,5 @@ public class CountInt2 {
 
         //Display sum and exit
         System.out.printf("\nExiting Program...\nYour total integer count was %d.", counter-1);
-
     }
 }
