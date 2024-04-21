@@ -1,6 +1,7 @@
 /*
 Program: Paper
 Programmer: Ryan Mehrian
+Date: April 19, 2024
 -----
 This program calculates the thickness of a large piece of paper halved and stacked 40 times, along with the area of each
 individual sheet of paper.

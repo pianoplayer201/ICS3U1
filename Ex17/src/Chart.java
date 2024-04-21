@@ -1,6 +1,7 @@
 /*
 Program: Chart
 Programmer: Ryan Mehrian
+Date: April 19, 2024
 -----
 This program outputs a chart of numbers from 5 to 40, along with their squares and cubes.
  */

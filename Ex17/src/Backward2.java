@@ -2,6 +2,7 @@ import java.util.Scanner;
 /*
 Program: Backward2
 Programmer: Ryan Mehrian
+Date: April 19, 2024
 ----
 This program outputs numbers down from 100 in increments of 5, down
 to a user inputted number.

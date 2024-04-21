@@ -1,6 +1,7 @@
 /*
 Program: RandomNum
 Programmer: Ryan Mehrian
+Date: April 19, 2024
 -----
 This program prints out a random number from 1 to 100.
  */
