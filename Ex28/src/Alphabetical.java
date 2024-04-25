@@ -22,8 +22,13 @@ public class Alphabetical {
         input2 = sc.nextLine();
 
         //Output
-        if (input1.compareTo(input2) > 0){
-
+        if (input1.compareToIgnoreCase(input2) < 0){
+            System.out.printf("%s comes before %s when sorted alphabetically.", input1, input2);
         }
+        else if (input1.compareToIgnoreCase(input2) > 0){
+            System.out.printf("%s comes after %s when sorted alphabetically.", input1, input2);
+        }
+        else
+            System.out.printf("%s and %s are equal.", input1, input2);
     }
 }
