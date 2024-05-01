@@ -24,6 +24,8 @@ public class Welcome {
     Parameters:
     String name - Name of the visitor
     int visitorNum - Number of visitor
+    ----
+    Generates a welcome message for a visitor based on their name and visitor number.
      */
     public static String welcomeMessage(String name, int visitorNum){
         String message = "Welcome " + name + "! You are visitor number " + (visitorNum) + ".";
