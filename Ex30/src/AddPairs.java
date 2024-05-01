@@ -20,12 +20,21 @@ public class AddPairs {
 
         //Input
         System.out.print("Please enter an integer: ");
-        userIn = sc.nextLine();
+        userIn = sc.nextLine().strip();
 
         //Loop and Output
         for(int i = 0; i < userIn.length(); i+=2){
-            Integer.parseInt(userIn.charAt(i) + userIn.substring(i+1));
+
+            try{
+                sum += Integer.parseInt(""+userIn.charAt(i) + userIn.charAt(i+1));
+            }
+            //In case of odd number of digits
+            catch (IndexOutOfBoundsException e){
+                sum += Integer.parseInt("" + userIn.charAt(i));
+            }
         }
+
+        System.out.printf("All the digits in pairs of two add up to %d", sum);
 
     }
 }
