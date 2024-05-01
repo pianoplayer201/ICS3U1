@@ -11,7 +11,7 @@ public class CheckDivisibility {
         final int num1 = 12, num2 = 3;
 
         //Output
-        System.out.printf("%d and %d divisible?: %b", num1,num2, evenlyDivisible(num1,num2));
+        System.out.printf("%d and %d divisible?: %B", num1,num2, evenlyDivisible(num1,num2));
     }
 
     /*
