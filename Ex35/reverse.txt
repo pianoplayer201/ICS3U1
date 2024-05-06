@@ -1,0 +1,11 @@
+10
+big
+small
+tall
+short
+fat
+thin
+far
+near
+high
+low
