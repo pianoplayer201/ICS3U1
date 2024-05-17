@@ -60,6 +60,13 @@ public class GroupTotaler {
             System.out.printf("Sum = %d\n\n", sum);
         }
 
+        //Close Reader
+        try {
+            fileIn.close();
+        } catch (IOException e) {
+            System.out.println(e + "");
+        }
+
     }
 
 }

@@ -45,6 +45,8 @@ public class DivideLoop {
                 }
             }
         }while(!quit);
+
+        sc.close();
     }
 
     /*

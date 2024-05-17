@@ -14,7 +14,7 @@ public class AddNumbers {
         //Declarations
         final String filepath = "numbers.txt";
         int sum = 0;
-        BufferedReader fileIn;
+        BufferedReader fileIn = null;
 
         //Read File and Add
         try{
@@ -28,6 +28,13 @@ public class AddNumbers {
         }
         //Reach end of File
         catch(NumberFormatException exitProgram){
+            //Close Reader
+            try{
+                fileIn.close();
+            }
+            catch(IOException e){
+
+            }
             System.out.printf("The sum of all the numbers are: %d", sum);
         }
     }
