@@ -1,0 +1,17 @@
+Student #1 Average: 79.74%
+Student #2 Average: 84.54%
+Student #3 Average: 80.52%
+Student #4 Average: 77.62%
+Student #5 Average: 85.66%
+Student #6 Average: 82.68%
+Student #7 Average: 78.74%
+Student #8 Average: 83.24%
+Student #9 Average: 74.90%
+Student #10 Average: 75.96%
+Highest Marking Student: #5
+Highest Grade: 85.66%
+Test #1 Average: 86.01%
+Test #2 Average: 80.73%
+Test #3 Average: 84.16%
+Test #4 Average: 95.16%
+Test #5 Average: 90.35%
