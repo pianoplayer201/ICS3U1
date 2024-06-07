@@ -5,18 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="055762f7-978b-4b8d-92ee-73baf778e83b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CULMINATING-BATTLESHIP.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Battleship.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Enemy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/File.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Screen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Ex19/src/PythagoreanTriples.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Ex19/src/Rectangle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Ex19/src/TableOfNumbers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Ex19/src/TriangleOfNumbers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Ex20/src/Marks.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Ex20/src/Numbers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Battleship.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Battleship.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/File.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/File.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Screen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Screen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Battleship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Battleship.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/File.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/File.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Ex19/src/main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Ex20/src/Height.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Ex20/src/Height.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Ex36/src/StarTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Ex36/src/StarTable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,23 +57,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Battleship.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Laptop&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.Battleship.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "Laptop",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/habib/Documents/Coding Projects/ICS3U1/Ex23",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "configurable.group.appearance",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -82,6 +87,11 @@
       <workItem from="1716902976013" duration="2099000" />
       <workItem from="1716905109570" duration="936000" />
       <workItem from="1716925154004" duration="16000" />
+      <workItem from="1717506543479" duration="259000" />
+      <workItem from="1717507347909" duration="3046000" />
+      <workItem from="1717598861137" duration="2329000" />
+      <workItem from="1717679766975" duration="383000" />
+      <workItem from="1717680363517" duration="3107000" />
     </task>
     <servers />
   </component>
