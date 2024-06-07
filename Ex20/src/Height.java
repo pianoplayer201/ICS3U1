@@ -3,6 +3,7 @@ import java.util.Scanner;
 /*
 Program: Height
 Programmer: Ryan Mehrian
+Date: May 31, 2024
 -----
 This program will accept inputs of 20 heights and output all heights of that series that are above average.
  */
