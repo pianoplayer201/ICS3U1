@@ -141,7 +141,8 @@ public class Screen {
         System.out.println("Empty spaces are marked with a -. These have nothing on them, and have never been hit.");
         System.out.println("The game ends when all of one player's ships are sunk.");
         System.out.println("NOTE: Placing ships on the board always places them starting from the top left corner of the ship (ship goes to the right if horizontal, and down if vertical)");
-        System.out.println("Good luck!\n \n Press Enter to Continue...");
+        System.out.println("Good luck!");
+        enterPrompt();
         sc.nextLine();
     }
 

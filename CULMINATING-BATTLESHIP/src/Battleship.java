@@ -294,7 +294,13 @@ public class Battleship {
 
         // Place Player Ships
         for(int i = 0; i < NUM_OF_SHIPS; i++){
+            Enemy.enemyPlaceShips(enemyBoard, shipInfoEnemy, i);
             Screen.placePrompt(playerBoard, playerShots, shipInfo, i);
+            Screen.gameBoard(enemyBoard, enemyShots);
+
+        }
+        for(int i = 0; i < NUM_OF_SHIPS; i++){
+            // DEBUG: Print Enemy Board
         }
     }
 
@@ -439,4 +445,17 @@ public class Battleship {
         }
         return index;
     }
+
+    /**
+     * Method: hitShip
+     * -----
+     * Parameters:
+     * String[][] shipBoard - the board to hit the ship on.
+     * String[][] shotBoard - the board to mark the shot on.
+     * int[][] shipInfo - the ship information to manipulate.
+     * int shipIndex - the index of the ship in the shipInfo array.
+     * int x - the x coordinates of the shot (in number format, not alphabetical).
+     * int y - the y coordinates of the shot.
+     * -----
+     */
 }
