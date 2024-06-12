@@ -294,14 +294,13 @@ public class Battleship {
 
         // Place Player Ships
         for(int i = 0; i < NUM_OF_SHIPS; i++){
-            Screen.placePrompt(playerBoard, playerShots, shipInfo, i);
-        }
-
-        // Place Enemy Ships
-        for(int i = 0; i < NUM_OF_SHIPS; i++){
             Enemy.enemyPlaceShips(enemyBoard, shipInfoEnemy, i);
-            // DEBUG: Print Enemy Board
+            Screen.placePrompt(playerBoard, playerShots, shipInfo, i);
             Screen.gameBoard(enemyBoard, enemyShots);
+
+        }
+        for(int i = 0; i < NUM_OF_SHIPS; i++){
+            // DEBUG: Print Enemy Board
         }
     }
 

@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="055762f7-978b-4b8d-92ee-73baf778e83b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Battleship.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Battleship.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Enemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Enemy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Screen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Screen.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Battleship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Battleship.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Enemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +94,7 @@
       <workItem from="1718127664650" duration="349000" />
       <workItem from="1718160568094" duration="4612000" />
       <workItem from="1718165261288" duration="35000" />
+      <workItem from="1718198033089" duration="377000" />
     </task>
     <servers />
   </component>
@@ -111,7 +106,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Battleship.java</url>
-          <line>327</line>
+          <line>326</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
