@@ -1,34 +1,35 @@
+/**
+* Class: File
+* Programmer: Ryan Mehrian
+* Date Created: May 28, 2024
+* -----
+* Description:
+* A class that is meant to handle everything pertaining to writing and reading files.
+ * */
+
 import java.io.*;
 import java.util.*;
 
-/*
-Class: File
-Programmer: Ryan Mehrian
-Date Created: May 28, 2024
------
-Description:
-A class that is meant to handle everything pertaining to writing and reading files.
- */
+
 public class File {
 
     // CONSTANTS
     final public static int FILE_LINE_COUNT = 44;
 
-    /*
-    Method: readFile
-    -----
-    Parameters:
-    String path - the path of the file to read.
-    -----
-    Returns:
-    String[][] - a 2D array of strings that represents the contents of the file.
-    -----
-    Description:
-    Reads a file and returns its contents as a 2D array of strings.
+    /**
+    * Method: readFile
+    * -----
+    * Parameters:
+    * String path - the path of the file to read.
+    * -----
+    * Returns:
+    * String[][] - a 2D array of strings that represents the contents of the file.
+    * -----
+    * Description:
+    * Reads a file and returns its contents as a 2D array of strings.
      */
     public static String[][] readFile(String path) throws IOException{
         //Declarations
-        Scanner sc = new Scanner(System.in);
         BufferedReader reader = null;
         String[][] data = new String[FILE_LINE_COUNT][Battleship.GRID_SIZE];
 
@@ -47,18 +48,18 @@ public class File {
         return data;
     }
 
-    /*
-    Method: writeFile
-    -----
-    Parameters:
-    String path - the path of the file to write to.
-    String[][] playerBoard - the player's board to write to the file.
-    String[][] enemyBoard - the enemy's board to write to the file.
-    String[][] playerShots - the player's shots to write to the file.
-    String[][] enemyShots - the enemy's shots to write to the file.
-    -----
-    Description:
-    Writes the player's board, enemy's board, player's shots and enemy's shots to a file using the proper format.
+    /**
+    * Method: writeFile
+    * -----
+    * Parameters:
+    * String path - the path of the file to write to.
+    * String[][] playerBoard - the player's board to write to the file.
+    * String[][] enemyBoard - the enemy's board to write to the file.
+    * String[][] playerShots - the player's shots to write to the file.
+    * String[][] enemyShots - the enemy's shots to write to the file.
+    * -----
+    * Description:
+    * Writes the player's board, enemy's board, player's shots and enemy's shots to a file using the proper format.
      */
     public static void writeFile(String path, String[][] playerBoard, String[][] enemyBoard, String[][] playerShots, String[][] enemyShots) throws IOException{
         // Declarations
