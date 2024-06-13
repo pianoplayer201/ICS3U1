@@ -315,4 +315,96 @@ public class Screen {
     public static void divider() {
         System.out.println("----------------------------------------------------");
     }
+
+    /**
+     * Method: playerTurn
+     * -----
+     * Parameters:
+     * String[][] playerBoard - the board to be hit.
+     * String[][] enemyBoard - the board to be hit.
+     * String[][] shotBoard - the board that contains the shots.
+     * int[][] shipInfo - the information of all the ships.
+     * -----
+     * Returns:
+     * boolean - true if a ship was hit, false if not.
+     * -----
+     * Description:
+     * A prompt for the user to input coordinates for a hit. The method will check if the hit was a miss or not, and return the result.
+     * The method calls upon Battleship.hitShip() to process the hit, and uses the return values from that method to determine if the hit was successful,
+     * and whether or not this program needs to prompt the user again. Outputs the board as well.
+     */
+    public static boolean playerTurn(String[][] playerBoard , String[][] enemyBoard, String[][] shotBoard, int[][] shipInfo){
+        // Declarations
+        String input = "";
+        int x = 0;
+        int y = 0;
+        boolean valid = false;
+        int hitStatus = 0;
+        boolean hit = false;
+
+        Scanner sc = new Scanner(System.in);
+
+        // Loop until a valid coordinate for shots are inputted (OR PLAYER CHOOSES TO EXIT)
+        while(!valid){
+            clearScreen();
+            gameBoard(playerBoard, shotBoard);
+
+            System.out.println("Enter [S] to Save, or [Q] to Forfeit the game.");
+            divider();
+
+            // Input Process
+            try{
+                // Get the x coordinate with validation.
+                System.out.print("Enter the x coordinate of your shot (A-J): ");
+                input = sc.nextLine().toUpperCase();
+                x = Battleship.mapLetterCoordsToIndex(input);
+
+                // If invalid letter.
+                if(x == -1){
+                    divider();
+                    System.out.println("Invalid x coordinate. Please try again.");
+                    enterPrompt();
+                    continue;
+                }
+
+                // Get the y coordinate with validation
+                System.out.print("Enter the y coordinate of your shot: ");
+                y = Integer.parseInt(sc.nextLine()) - 1;
+
+                if(y < 0 || y > 9){
+                    divider();
+                    System.out.println("Invalid y coordinate. Please try again.");
+                    enterPrompt();
+                    continue;
+                }
+
+                // Attempt to hit the shot, check to see if the shot is valid (not already shot before)
+                hitStatus = Battleship.hitShip(enemyBoard, shotBoard, shipInfo, x, y, true);
+                if(hitStatus == -2){
+                    divider();
+                    System.out.println("You have already shot at this location. Please try again.");
+                    enterPrompt();
+                    continue;
+                }
+
+                // If all works, its true!
+                valid = true;
+
+            }catch(InputMismatchException e) {
+                divider();
+                System.out.println("Invalid y coordinate. Please try again.");
+                enterPrompt();
+                continue;
+            }
+        }
+
+        // Check if Hit (not miss)
+        if (hitStatus != -1){
+            hit = true;
+        }
+        else{
+            hit = false;
+        }
+        return hit;
+    }
 }

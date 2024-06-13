@@ -48,7 +48,8 @@ public class Battleship {
     public static void main(String[]args){
 
         // Game Variables
-        boolean quit = false;
+        boolean quitProgram = false;
+        boolean quitGame = false;
         boolean easyMode = true;
         int menuChoice = 0;
         String[][] playerBoard = new String[GRID_SIZE][GRID_SIZE];
@@ -105,7 +106,7 @@ public class Battleship {
         Screen.enterPrompt();
 
         //MAIN LOOP
-        while(!quit){
+        while(!quitProgram){
             //MAIN MENU
             menuChoice = Screen.mainMenu();
             if (menuChoice == 1){
@@ -125,7 +126,12 @@ public class Battleship {
             else if (menuChoice == 5){
                 //Exit
                 System.out.println("QUITTING");
-                quit = true;
+                quitProgram = true;
+            }
+
+            // Turn (Check if Quit as Well)
+            while(!quitProgram){
+                quitProgram = turnSequence(playerBoard, enemyBoard, playerShots, enemyShots, shipInfo, shipInfoEnemy, easyMode);
             }
         }
     }
@@ -238,7 +244,6 @@ public class Battleship {
         }
         else{
             System.out.println("LOADING...");
-            Screen.gameBoard(playerBoard, playerShots);
         }
     }
 
@@ -286,22 +291,49 @@ public class Battleship {
     * int[][] shipInfoEnemy - the enemy's ship information to manipulate.
     * -----
     * Description:
-    * Controls the flow of a new game, including ship placement.
+    * Controls the initialization of a new game, including ship placement.
      */
     public static void newGame(String[][] playerBoard, String[][] enemyBoard, String[][] playerShots, String[][] enemyShots, int[][] shipInfo, int[][] shipInfoEnemy){
         // Declarations
 
 
-        // Place Player Ships
+        // Place Player Ships and Enemy Ships
         for(int i = 0; i < NUM_OF_SHIPS; i++){
             Enemy.enemyPlaceShips(enemyBoard, shipInfoEnemy, i);
             Screen.placePrompt(playerBoard, playerShots, shipInfo, i);
-            Screen.gameBoard(enemyBoard, enemyShots);
+        }
+    }
 
-        }
-        for(int i = 0; i < NUM_OF_SHIPS; i++){
-            // DEBUG: Print Enemy Board
-        }
+    /**
+     * Method: turnSequence
+     * -----
+     * Parameters:
+     * String[][] playerBoard - the player's board to manipulate.
+     * String[][] enemyBoard - the enemy's board to manipulate.
+     * String[][] playerShots - the player's shots to manipulate.
+     * String[][] enemyShots - the enemy's shots to manipulate.
+     * int[][] shipInfo - the ship information to manipulate.
+     * int[][] shipInfoEnemy - the enemy's ship information to manipulate.
+     * boolean easyMode - whether the game is in easy mode.
+     * -----
+     * Returns:
+     * boolean - true if the game is over, false if not.
+     * -----
+     * Description:
+     * Controls the flow of one turn, including player and enemy turn. Is called by main() in a while loop.
+     */
+    public static boolean turnSequence(String[][] playerBoard, String[][] enemyBoard, String[][]playerShots, String[][] enemyShots, int[][] shipInfo, int[][] shipInfoEnemy, boolean easyMode){
+        // Declarations
+        boolean gameOver = false;
+
+        // Player Turn
+        Screen.playerTurn(playerBoard, enemyBoard, playerShots, shipInfo);
+
+        // Enemy Turn
+        Enemy.enemyTurn(playerBoard, enemyShots, shipInfoEnemy, easyMode);
+
+        // Return if game is over
+        return gameOver;
     }
 
 
@@ -388,7 +420,7 @@ public class Battleship {
     * -----
     * Parameters:
     * int ship - the ship to get the string of.
-     *  boolean fullName - whether or not to return the full name of the ship.
+     *  boolean fullName - whether to return the full name of the ship.
     * -----
     * Returns:
     * String - the String of the ship.
@@ -453,9 +485,130 @@ public class Battleship {
      * String[][] shipBoard - the board to hit the ship on.
      * String[][] shotBoard - the board to mark the shot on.
      * int[][] shipInfo - the ship information to manipulate.
-     * int shipIndex - the index of the ship in the shipInfo array.
+     * int x - the x coordinates of the shot (in number format, not alphabetical).
+     * int y - the y coordinates of the shot.
+     * boolean isPlayer - whether the player is the one shooting, used to determine the message given.
+     * -----
+     * Returns:
+     * int - If the shot was a hit, returns the index of the ship that was hit. If the shot was a miss, returns -1, if the shot was invalid, returns -2.
+     * -----
+     * Description:
+     * Takes in coordinates (0 indexed) and marks the shot on the shot board. If the shot was a hit, the method returns the index of the ship that was hit.
+     * Calls checkValidShot to determine if the shot is valid.
+     * Also outputs sunk messages.
+     */
+    public static int hitShip(String[][] shipBoard, String[][] shotBoard, int[][] shipInfo, int x, int y, boolean isPlayer) {
+
+        // Declarations
+        final int IS_MISS = -1;
+        final int IS_INVALID = -2;
+        int hitShipIndex = -2;
+
+        // Check if the shot is valid
+        if(checkValidShot(shotBoard, x, y)){
+
+            // Check if the shot is a hit or miss, and change shotBoard, shipInfo, and shipBoard accordingly.
+            if(shipBoard[y][x].equals(Screen.EMPTY)){
+
+                shotBoard[y][x] = Screen.MISS;
+                shipBoard[y][x] = Screen.MISS;
+                hitShipIndex = IS_MISS;
+
+            }
+            else{
+                //FIND THIS HERE
+                hitShipIndex = indexShipInteger(shipBoard[y][x]);
+                shipInfo[hitShipIndex][SHIP_HIT_INDEX]++;
+
+                shotBoard[y][x] = Screen.HIT;
+                shipBoard[y][x] = Screen.HIT;
+
+                // Give hit messages (player can see which ship was hit on their board, but player cannot see which ship was hit on enemy's board)
+                if (isPlayer) {
+                    System.out.println("You hit one of your enemy's ships!");
+                } else {
+                    System.out.printf("The enemy hit your %s at %s, %d!\n", indexShipLetter(hitShipIndex, true), LETTERS[x], y + 1);
+                }
+
+                // Check if Sunk now
+                if (shipInfo[hitShipIndex][SHIP_HIT_INDEX] == shipInfo[hitShipIndex][SHIP_SIZE_INDEX]) {
+
+                    shipInfo[hitShipIndex][SHIP_SUNK_INDEX] = IS_SUNK;
+                    // Sink messages
+                    if (isPlayer) {
+                        System.out.println("You sunk the enemy's " + indexShipLetter(hitShipIndex, true) + "!");
+                    } else {
+                        System.out.println("The enemy sunk your " + indexShipLetter(hitShipIndex, true) + "!");
+                    }
+                }
+            }
+        }
+        else{
+            hitShipIndex = IS_INVALID;
+        }
+
+        return hitShipIndex;
+    }
+
+    /**
+     * Method: checkValidShot
+     * -----
+     * Parameters:
+     * String[][] shotBoard - the board to check if the shot is valid on.
      * int x - the x coordinates of the shot (in number format, not alphabetical).
      * int y - the y coordinates of the shot.
      * -----
+     * Returns:
+     * boolean - true if the shot is valid, false if not.
+     * -----
+     * Description:
+     * Takes in coordinates (0 indexed) and checks if the shot is valid. If the shot is valid, the method returns true.
+     * This method is called during the hitShip method.
      */
+    public static boolean checkValidShot(String[][] shotBoard, int x, int y) {
+
+        // Declarations
+        boolean isValid = false;
+
+        // Check if shot is valid
+        try{
+            if (!shotBoard[y][x].equals(Screen.HIT)|| !shotBoard[y][x].equals(Screen.MISS)){
+                isValid = true;
+            }
+        }
+        // Check if the shot is even on the board!
+        catch (ArrayIndexOutOfBoundsException e) {
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    /**
+     * Method: indexShipInteger
+     * -----
+     * Parameters:
+     * String ship - the ship to get the index of.
+     * -----
+     * Returns:
+     * int - the index of the ship.
+     * -----
+     * Description:
+     * Takes in a string of the ship, and returns the index of the ship in the shipInfo array.
+     */
+    public static int indexShipInteger(String ship) {
+        int index = -1;
+        if (ship.equals(Screen.DESTROYER)) {
+            index = DESTROYER_INDEX;
+        } else if (ship.equals(Screen.CRUISER)) {
+            index = CRUISER_INDEX;
+        } else if (ship.equals(Screen.SUBMARINE)) {
+            index = SUBMARINE_INDEX;
+        } else if (ship.equals(Screen.BATTLESHIP)) {
+            index = BATTLESHIP_INDEX;
+        } else if (ship.equals(Screen.CARRIER)) {
+            index = CARRIER_INDEX;
+        }
+        return index;
+    }
 }
