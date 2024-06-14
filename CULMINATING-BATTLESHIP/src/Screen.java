@@ -5,6 +5,9 @@
 * ------
 * Description:
 * A class that contains everything related to Menus, UI and user interaction.
+* -----
+* REMINDER:
+* REMOVE CONTINUE COMMANDS IN THE CODE, BAD CODING STYLE.
  */
 
 import java.util.*;
@@ -58,6 +61,7 @@ public class Screen {
         //Declarations
         int choice = 0;
         Scanner input = new Scanner(System.in);
+        String inputString = "";
 
         //Display the menu
         clearScreen();
@@ -71,13 +75,14 @@ public class Screen {
 
         //Get the choice
         try {
-            choice = input.nextInt();
+            inputString = input.nextLine();
+            choice = Integer.parseInt(inputString);
             if (choice < 1 || choice > 5) {
                 divider();
                 System.out.println("Invalid choice. Please enter to try again.");
                 choice = mainMenu();
             }
-        } catch (InputMismatchException e) {
+        } catch (NumberFormatException e) {
             divider();
             System.out.println("Invalid choice. Please enter to try again.");
             choice = mainMenu();
@@ -93,11 +98,12 @@ public class Screen {
      * Parameters:
      * String[][] playerBoard - the player's board to display.
      * String[][] playerShots - the player's shots on the enemy.
+     * boolean enemyTurn - If it was just the enemy's turn (should we show the enemy's shot board?).
      * -----
      * Description:
-     * Outputs a screen which shows the player their board with ships placed, their shots on the enemy and the enemy's shots on the player.
+     * Outputs a screen which shows the player their board with ships placed, their shots on the enemy and the enemy's shots on the player when they shoot.
      */
-    public static void gameBoard(String[][] playerBoard, String[][] playerShots) {
+    public static void gameBoard(String[][] playerBoard, String[][] playerShots, boolean enemyTurn) {
 
         // Declarations
 
@@ -107,7 +113,7 @@ public class Screen {
 
         // Output
         divider();
-        System.out.printf("%23S%s%23S\n", "Player Board", SPACING, "Player Shots");
+        System.out.printf("%23S%s%23S\n", "Player Board", SPACING, (enemyTurn? "Enemy Shots" : "Player Shots"));
         System.out.printf("%23s%s%23s\n", Arrays.toString(Battleship.LETTERS).replace(",", ""), SPACING, Arrays.toString(Battleship.LETTERS).replace(",", ""));
         for (int i = 0; i < playerBoard.length; i++) {
             System.out.printf("%2d%21S%s%2d%21S\n", i + 1, Arrays.toString(playerBoard[i]).replace(",", ""), SPACING, i + 1, Arrays.toString(playerShots[i]).replace(",", ""));
@@ -143,7 +149,6 @@ public class Screen {
         System.out.println("NOTE: Placing ships on the board always places them starting from the top left corner of the ship (ship goes to the right if horizontal, and down if vertical)");
         System.out.println("Good luck!");
         enterPrompt();
-        sc.nextLine();
     }
 
     /**
@@ -181,8 +186,7 @@ public class Screen {
 
         //Get the choice
         try {
-            choice = input.nextInt();
-            input.nextLine();
+            choice = Integer.parseInt(input.nextLine());
             if (choice < 1 || choice > 2) {
                 System.out.println("Invalid Option, No Changes made!");
             } else if (choice == 1) {
@@ -191,7 +195,7 @@ public class Screen {
             } else {
                 System.out.println("No Changes made!");
             }
-        } catch (InputMismatchException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Invalid Option, No Changes made!");
         }
 
@@ -229,7 +233,7 @@ public class Screen {
         while (!placed) {
             // Output Board
             enterPrompt();
-            gameBoard(playerBoard, playerShots);
+            gameBoard(playerBoard, playerShots, false);
 
             // Input Process
             System.out.println("Place your " + Battleship.indexShipLetter(shipIndex, true) + " (" + shipInfo[shipIndex][Battleship.SHIP_SIZE_INDEX] + " spaces)");
@@ -250,15 +254,14 @@ public class Screen {
             // Get the y coordinate with validation.
             System.out.print("Enter the y coordinate (1-10): ");
             try {
-                y = sc.nextInt() - 1;
-                sc.nextLine();
+                y = Integer.parseInt(sc.nextLine()) - 1;
                 if (y < 0 || y > 9) {
                     divider();
                     System.out.println("Invalid y coordinate. Please try again.");
                     continue;
                 }
 
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 divider();
                 System.out.println("Invalid y coordinate. Please try again.");
                 continue;
@@ -279,7 +282,7 @@ public class Screen {
 
             // Place the ship
             placed = Battleship.placeShip(playerBoard, shipInfo, shipIndex, x, y, direction);
-            if (placed!=true) {
+            if(placed!=true) {
                 divider();
                 System.out.println("Invalid placement, ship does not fit. Please try again.");
             }
@@ -303,6 +306,11 @@ public class Screen {
         System.out.println();
         divider();
         System.out.println("Press Enter to Continue...");
+
+        // Sloppy fix to a stray nextLine() bug, remove if I find the stray nextLine()
+        while(!sc.hasNextLine()){
+            sc.next();
+        }
         sc.nextLine();
     }
 
@@ -323,31 +331,34 @@ public class Screen {
      * String[][] playerBoard - the board to be hit.
      * String[][] enemyBoard - the board to be hit.
      * String[][] shotBoard - the board that contains the shots.
-     * int[][] shipInfo - the information of all the ships.
+     * STring[][] enemyShots - the board that contains the enemy's shots, used for saving.
+     * int[][] shipInfoEnemy - the information of all the enemy's ships to manipulate.
      * -----
      * Returns:
-     * boolean - true if a ship was hit, false if not.
+     * int - returns 1 if the player hit a ship, 0 if the player missed, and -1 if the player quit.
      * -----
      * Description:
      * A prompt for the user to input coordinates for a hit. The method will check if the hit was a miss or not, and return the result.
      * The method calls upon Battleship.hitShip() to process the hit, and uses the return values from that method to determine if the hit was successful,
      * and whether or not this program needs to prompt the user again. Outputs the board as well.
      */
-    public static boolean playerTurn(String[][] playerBoard , String[][] enemyBoard, String[][] shotBoard, int[][] shipInfo){
+    public static int playerTurn(String[][] playerBoard , String[][] enemyBoard, String[][] shotBoard, int[][] shipInfoEnemy, String[][] enemyShots){
         // Declarations
         String input = "";
         int x = 0;
         int y = 0;
         boolean valid = false;
+        boolean quit = false;
+        boolean validPreviousInput = true;
         int hitStatus = 0;
-        boolean hit = false;
+        int hit = 0;
 
         Scanner sc = new Scanner(System.in);
 
         // Loop until a valid coordinate for shots are inputted (OR PLAYER CHOOSES TO EXIT)
-        while(!valid){
+        while(!valid && !quit){
             clearScreen();
-            gameBoard(playerBoard, shotBoard);
+            gameBoard(playerBoard, shotBoard, false);
 
             System.out.println("Enter [S] to Save, or [Q] to Forfeit the game.");
             divider();
@@ -357,54 +368,158 @@ public class Screen {
                 // Get the x coordinate with validation.
                 System.out.print("Enter the x coordinate of your shot (A-J): ");
                 input = sc.nextLine().toUpperCase();
+
+                // Check for S or Q
+                switch(input) {
+                    case "S":
+                        divider();
+                        Battleship.saveGame(playerBoard, enemyBoard, shotBoard, enemyShots);
+                        enterPrompt();
+                        validPreviousInput = false;
+                        break;
+
+                    case "Q":
+                        divider();
+                        System.out.println("Are you sure you want to quit? You will lose the game." + "\n" + "Enter [Y] to confirm, or [N] to cancel.");
+                        if(sc.nextLine().toUpperCase().equals("Y")){
+                            quit = true;
+                        }
+                        else{
+                            quit = false;
+                        }
+                        validPreviousInput = false;
+                        break;
+                    default:
+                        validPreviousInput = true;
+                        break;
+                }
+
                 x = Battleship.mapLetterCoordsToIndex(input);
 
                 // If invalid letter.
-                if(x == -1){
+                if((x == -1) && validPreviousInput){
                     divider();
                     System.out.println("Invalid x coordinate. Please try again.");
                     enterPrompt();
-                    continue;
+
+                    validPreviousInput = false;
                 }
 
                 // Get the y coordinate with validation
-                System.out.print("Enter the y coordinate of your shot: ");
-                y = Integer.parseInt(sc.nextLine()) - 1;
+                if(validPreviousInput) {
+                    System.out.print("Enter the y coordinate of your shot: ");
+                    input = sc.nextLine();
 
-                if(y < 0 || y > 9){
-                    divider();
-                    System.out.println("Invalid y coordinate. Please try again.");
-                    enterPrompt();
-                    continue;
+                    switch (input) {
+                        case "S":
+                            divider();
+                            Battleship.saveGame(playerBoard, enemyBoard, shotBoard, enemyShots);
+                            enterPrompt();
+                            validPreviousInput = false;
+                            break;
+
+                        case "Q":
+                            divider();
+                            System.out.println("Are you sure you want to quit?" + "\n" + "Enter [Y] to confirm, or [N] to cancel.");
+                            if (sc.nextLine().toUpperCase().equals("Y")) {
+                                quit = true;
+                            } else {
+                                quit = false;
+                            }
+                            validPreviousInput = false;
+                            break;
+                        default:
+                            validPreviousInput = true;
+                            break;
+                    }
+
+                    if(validPreviousInput)
+                        y = Integer.parseInt(input) - 1;
+
+                    if ((y < 0 || y > 9) && validPreviousInput) {
+                        divider();
+                        System.out.println("Invalid y coordinate. Please try again.");
+                        enterPrompt();
+                        validPreviousInput = false;
+                    }
                 }
 
-                // Attempt to hit the shot, check to see if the shot is valid (not already shot before)
-                hitStatus = Battleship.hitShip(enemyBoard, shotBoard, shipInfo, x, y, true);
-                if(hitStatus == -2){
-                    divider();
-                    System.out.println("You have already shot at this location. Please try again.");
-                    enterPrompt();
-                    continue;
+                if(validPreviousInput){
+                    // Attempt to hit the shot, check to see if the shot is valid (not already shot before)
+                    hitStatus = Battleship.hitShip(enemyBoard, shotBoard, shipInfoEnemy, x, y, true);
+                    if(hitStatus == -2){
+                        divider();
+                        System.out.println("You have already shot at this location. Please try again.");
+                        enterPrompt();
+                        validPreviousInput = false;
+                    }
+
+                    // If all works, its true!
+                    valid = true;
                 }
-
-                // If all works, its true!
-                valid = true;
-
-            }catch(InputMismatchException e) {
+            }catch(NumberFormatException e) {
                 divider();
                 System.out.println("Invalid y coordinate. Please try again.");
                 enterPrompt();
-                continue;
+                validPreviousInput = false;
             }
         }
 
         // Check if Hit (not miss)
-        if (hitStatus != -1){
-            hit = true;
+        if(quit){
+            hit = -1;
+        }
+        else if (hitStatus != -1){
+            hit = 1;
         }
         else{
-            hit = false;
+            hit = 0;
         }
+
         return hit;
+    }
+
+
+    /**
+     * Method: winScreen
+     * -----
+     * Description:
+     * Called by Battleship.turnSequence() to display the win screen when a player wins the game.
+     * The screen simply congratulates the player, and tells them to press enter to return to the main menu.
+     */
+    public static void winScreen() {
+        clearScreen();
+        System.out.println("Congratulations! You have won the game by sinking all of the enemy's ships!");
+        enterPrompt();
+    }
+
+    /**
+     * Method: loseScreen
+     * -----
+     * String[][] playerShips - the player's ships.
+     * String[][] enemyShips - the enemy's ships.
+     * -----
+     * Description:
+     * Called by Battleship.turnSequence() to display the lose screen when a player loses the game.
+     * The screen simply tells the player that they have lost, and tells them to press enter to return to the main menu.
+     * Also displays the enemy's board side by side to the player's board to show them where the ships were.
+     */
+    public static void loseScreen(String[][] playerShips, String[][] enemyShips) {
+
+        // Output Boards
+        clearScreen();
+        divider();
+        System.out.printf("%23S%s%23S\n", "Player Board", SPACING, "Enemy Board");
+        System.out.printf("%23s%s%23s\n", Arrays.toString(Battleship.LETTERS).replace(",", ""), SPACING, Arrays.toString(Battleship.LETTERS).replace(",", ""));
+        for (int i = 0; i < playerShips.length; i++) {
+            System.out.printf("%2d%21S%s%2d%21S\n", i + 1, Arrays.toString(playerShips[i]).replace(",", ""), SPACING, i + 1, Arrays.toString(enemyShips[i]).replace(",", ""));
+        }
+        divider();
+
+        // Output Message
+        System.out.println("You have lost the game! Better luck next time!");
+        System.out.println("You can see where the enemy's ships were placed on the board to the right.");
+        System.out.println("You will now be returned to the main menu.");
+        enterPrompt();
     }
 }

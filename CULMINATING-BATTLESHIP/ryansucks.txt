@@ -1,0 +1,44 @@
+Player ships:
+---AAXAA--
+-OO----OO-
+-DXOOO--C-
+O---O---C-
+O-------XO
+-OXBXB--O-
+-------O--
+-OO---O-O-
+-----SSS--
+---O-OO--O
+CPU ships:
+----AAAAA-
+--O--O--XX
+--X-O--OO-
+--XO--O---
+--XO-OSSX-
+-OX-O--O--
+---O--O---
+--O--O-CO-
+-O--O--C--
+------OC--
+Player shots:
+----------
+--O--O--XX
+--X-O--OO-
+--XO--O---
+--XO-O--X-
+-OX-O--O--
+---O--O---
+--O--O--O-
+-O--O-----
+------O---
+CPU shots:
+-----X----
+-OO----OO-
+--XOOO----
+O---O-----
+O-------XO
+-OX-X---O-
+-------O--
+-OO---O-O-
+----------
+---O-OO--O

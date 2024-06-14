@@ -48,7 +48,7 @@ public class Enemy {
     * Parameters:
     * String[][] playerBoard - the player's board.
     * String[][] enemyShots - the enemy's shots.
-    * String[][] shipInfo - a 2D array that contains all ship information.
+    * String[][] shipInfo - a 2D array that contains all ship information for the player, to manipulate when enemy hits.
     * boolean easyMode - a boolean that determines if the enemy is in easy mode.
     * -----
      * Returns:
@@ -79,6 +79,7 @@ public class Enemy {
             } while(!valid);
 
             // GO hit!
+            Screen.clearScreen();
             Battleship.hitShip(playerBoard, enemyShots, shipInfo, x, y, false);
         }
         else{

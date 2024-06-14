@@ -31,26 +31,31 @@ public class Battleship {
     final public static int VERTICAL_DIRECTION = 1;
 
     // INDEX for SHIP Information
-        // First Layer of 2D Array
+    // First Layer of 2D Array
     final public static int DESTROYER_INDEX = 0;
     final public static int CRUISER_INDEX = 1;
     final public static int SUBMARINE_INDEX = 2;
     final public static int BATTLESHIP_INDEX = 3;
     final public static int CARRIER_INDEX = 4;
-        // Second Layer of 2D Array
+    // Second Layer of 2D Array
     final public static int IS_SUNK = 0;
     final public static int NOT_SUNK = 1;
     final public static int SHIP_SUNK_INDEX = 2;
     final public static int SHIP_HIT_INDEX = 1; // Counts the number of hits on a ship, to then determine if it shoudl be sunk.
     final public static int SHIP_SIZE_INDEX = 0;
 
+    // Win/Lose Indexes
+    final public static int PLAYER_WIN = 0;
+    final public static int PLAYER_LOSE = 1;
 
-    public static void main(String[]args){
+
+    public static void main(String[] args) {
 
         // Game Variables
         boolean quitProgram = false;
         boolean quitGame = false;
         boolean easyMode = true;
+        boolean loadGameSuccess = false;
         int menuChoice = 0;
         String[][] playerBoard = new String[GRID_SIZE][GRID_SIZE];
         String[][] enemyBoard = new String[GRID_SIZE][GRID_SIZE];
@@ -58,12 +63,12 @@ public class Battleship {
         String[][] enemyShots = new String[GRID_SIZE][GRID_SIZE];
 
         // Initialize Ship Info defaults
-        int[][] shipInfo = new int[5][3];
-        int[][] shipInfoEnemy;
+        int[][] shipInfoPlayer = new int[NUM_OF_SHIPS][3];
+        int[][] shipInfoEnemy = new int [NUM_OF_SHIPS][3];
 
         // Initialize all the boards to be empty to start with.
-        for(int i = 0; i < GRID_SIZE; i++){
-            for(int j = 0; j < GRID_SIZE; j++){
+        for (int i = 0; i < GRID_SIZE; i++) {
+            for (int j = 0; j < GRID_SIZE; j++) {
                 playerBoard[i][j] = Screen.EMPTY;
                 enemyBoard[i][j] = Screen.EMPTY;
                 playerShots[i][j] = Screen.EMPTY;
@@ -71,34 +76,36 @@ public class Battleship {
             }
         }
 
-        for(int i = 0; i < NUM_OF_SHIPS; i++){
+        for (int i = 0; i < NUM_OF_SHIPS; i++) {
 
             //Set ships as not sunk, and not hit
-            shipInfo[i][SHIP_SUNK_INDEX] = NOT_SUNK;
-            shipInfo[i][SHIP_HIT_INDEX] = 0;
+            shipInfoPlayer[i][SHIP_SUNK_INDEX] = NOT_SUNK;
+            shipInfoPlayer[i][SHIP_HIT_INDEX] = 0;
 
             //Set ship size
             if (i == DESTROYER_INDEX) {
-                shipInfo[i][SHIP_SIZE_INDEX] = ((DESTROYER_SIZE));
-            }
-            else if (i == CRUISER_INDEX) {
-                shipInfo[i][SHIP_SIZE_INDEX] = ((CRUISER_SIZE));
-            }
-            else if (i == SUBMARINE_INDEX) {
-                shipInfo[i][SHIP_SIZE_INDEX] = ((SUBMARINE_SIZE));
-            }
-            else if (i == BATTLESHIP_INDEX) {
-                shipInfo[i][SHIP_SIZE_INDEX] = ((BATTLESHIP_SIZE));
-            }
-            else{
-                shipInfo[i][SHIP_SIZE_INDEX] = ((CARRIER_SIZE));
+                shipInfoPlayer[i][SHIP_SIZE_INDEX] = ((DESTROYER_SIZE));
+            } else if (i == CRUISER_INDEX) {
+                shipInfoPlayer[i][SHIP_SIZE_INDEX] = ((CRUISER_SIZE));
+            } else if (i == SUBMARINE_INDEX) {
+                shipInfoPlayer[i][SHIP_SIZE_INDEX] = ((SUBMARINE_SIZE));
+            } else if (i == BATTLESHIP_INDEX) {
+                shipInfoPlayer[i][SHIP_SIZE_INDEX] = ((BATTLESHIP_SIZE));
+            } else {
+                shipInfoPlayer[i][SHIP_SIZE_INDEX] = ((CARRIER_SIZE));
             }
 
         }
 
         //Other Object Declarations
         Scanner sc = new Scanner(System.in);
-        shipInfoEnemy = shipInfo.clone();
+
+        // Clone the player's ship info to the enemy's ship info using for loop
+        for (int i = 0; i < NUM_OF_SHIPS; i++) {
+            shipInfoEnemy[i][SHIP_SIZE_INDEX] = shipInfoPlayer[i][SHIP_SIZE_INDEX];
+            shipInfoEnemy[i][SHIP_SUNK_INDEX] = shipInfoPlayer[i][SHIP_SUNK_INDEX];
+            shipInfoEnemy[i][SHIP_HIT_INDEX] = shipInfoPlayer[i][SHIP_HIT_INDEX];
+        }
 
 
         // Startup Message
@@ -106,56 +113,103 @@ public class Battleship {
         Screen.enterPrompt();
 
         //MAIN LOOP
-        while(!quitProgram){
+        while (!quitProgram) {
+
+            // Reset Game Variables
+            quitGame = false;
+
+            // Initialize all the boards to be empty to start with.
+            for (int i = 0; i < GRID_SIZE; i++) {
+                for (int j = 0; j < GRID_SIZE; j++) {
+                    playerBoard[i][j] = Screen.EMPTY;
+                    enemyBoard[i][j] = Screen.EMPTY;
+                    playerShots[i][j] = Screen.EMPTY;
+                    enemyShots[i][j] = Screen.EMPTY;
+                }
+            }
+
+            for (int i = 0; i < NUM_OF_SHIPS; i++) {
+
+                //Set ships as not sunk, and not hit
+                shipInfoPlayer[i][SHIP_SUNK_INDEX] = NOT_SUNK;
+                shipInfoPlayer[i][SHIP_HIT_INDEX] = 0;
+
+                //Set ship size
+                if (i == DESTROYER_INDEX) {
+                    shipInfoPlayer[i][SHIP_SIZE_INDEX] = ((DESTROYER_SIZE));
+                } else if (i == CRUISER_INDEX) {
+                    shipInfoPlayer[i][SHIP_SIZE_INDEX] = ((CRUISER_SIZE));
+                } else if (i == SUBMARINE_INDEX) {
+                    shipInfoPlayer[i][SHIP_SIZE_INDEX] = ((SUBMARINE_SIZE));
+                } else if (i == BATTLESHIP_INDEX) {
+                    shipInfoPlayer[i][SHIP_SIZE_INDEX] = ((BATTLESHIP_SIZE));
+                } else {
+                    shipInfoPlayer[i][SHIP_SIZE_INDEX] = ((CARRIER_SIZE));
+                }
+
+            }
+
+            // Clone the player's ship info to the enemy's ship info using for loop
+            for (int i = 0; i < NUM_OF_SHIPS; i++) {
+                shipInfoEnemy[i][SHIP_SIZE_INDEX] = shipInfoPlayer[i][SHIP_SIZE_INDEX];
+                shipInfoEnemy[i][SHIP_SUNK_INDEX] = shipInfoPlayer[i][SHIP_SUNK_INDEX];
+                shipInfoEnemy[i][SHIP_HIT_INDEX] = shipInfoPlayer[i][SHIP_HIT_INDEX];
+            }
+
             //MAIN MENU
             menuChoice = Screen.mainMenu();
-            if (menuChoice == 1){
+            if (menuChoice == 1) {
                 //New Game
-                newGame(playerBoard, enemyBoard, playerShots, enemyShots, shipInfo, shipInfoEnemy);
-            }else if (menuChoice == 2){
-                //Load Game
-                loadGame(playerBoard, enemyBoard, playerShots, enemyShots, shipInfo, shipInfoEnemy);
-            }else if (menuChoice == 3) {
+                newGame(playerBoard, enemyBoard, playerShots, enemyShots, shipInfoPlayer, shipInfoEnemy);
+
+                // Turn Loops
+                while (!quitGame)
+                    quitGame = turnSequence(playerBoard, enemyBoard, playerShots, enemyShots, shipInfoPlayer, shipInfoEnemy, easyMode);
+
+            } else if (menuChoice == 2) {
+                //Load Game & Turn Loops
+                loadGameSuccess = loadGame(playerBoard, enemyBoard, playerShots, enemyShots, shipInfoPlayer, shipInfoEnemy);
+                while (!quitGame && loadGameSuccess)
+                    quitGame = turnSequence(playerBoard, enemyBoard, playerShots, enemyShots, shipInfoPlayer, shipInfoEnemy, easyMode);
+
+            } else if (menuChoice == 3) {
                 //Instructions
                 Screen.instructions();
-            }
-            else if (menuChoice == 4){
+            } else if (menuChoice == 4) {
                 //Difficulty Change
                 easyMode = Screen.difficultyMenu(easyMode);
-            }
-            else if (menuChoice == 5){
+            } else if (menuChoice == 5) {
                 //Exit
                 System.out.println("QUITTING");
                 quitProgram = true;
-            }
-
-            // Turn (Check if Quit as Well)
-            while(!quitProgram){
-                quitProgram = turnSequence(playerBoard, enemyBoard, playerShots, enemyShots, shipInfo, shipInfoEnemy, easyMode);
             }
         }
     }
 
     /**
-    * Method: loadGame
-    * -----
-    * Parameters:
-    * String[][] playerBoard - the player's board to load.
-    * String[][] enemyBoard - the enemy's board to load.
-    * String[][] playerShots - the player's shots to load.
-    * String[][] enemyShots - the enemy's shots to load.
-    * int[][] shipInfo - the ship information to load.
-    * int[][] shipInfoEnemy - the enemy's ship information to load.
-    * -----
-    * Description:
-    * Prompts the user for a file path, then uses File.readFile to load the player's data. This method formats it into
-    * respective arrays.
+     * Method: loadGame
+     * -----
+     * Parameters:
+     * String[][] playerBoard - the player's board to load.
+     * String[][] enemyBoard - the enemy's board to load.
+     * String[][] playerShots - the player's shots to load.
+     * String[][] enemyShots - the enemy's shots to load.
+     * int[][] shipInfo - the ship information to load.
+     * int[][] shipInfoEnemy - the enemy's ship information to load.
+     * -----
+     * Returns:
+     * boolean - true if the game was loaded successfully, false if not.
+     * -----
+     * Description:
+     * Prompts the user for a file path, then uses File.readFile to load the player's data. This method formats it into
+     * respective arrays. If the file is invalid, the method returns false.
      */
-    public static void loadGame(String[][] playerBoard, String[][] enemyBoard, String[][] playerShots, String[][] enemyShots, int[][]shipInfo, int[][] shipInfoEnemy){
+    public static boolean loadGame(String[][] playerBoard, String[][] enemyBoard, String[][] playerShots, String[][] enemyShots, int[][] shipInfo, int[][] shipInfoEnemy) {
         // Declarations
         String path = "";
         String[][] data = new String[File.FILE_LINE_COUNT][GRID_SIZE];
         boolean valid = false;
+        boolean success = false;
 
         Scanner sc = new Scanner(System.in);
 
@@ -165,86 +219,96 @@ public class Battleship {
         System.out.print(" > ");
         path = sc.nextLine();
 
-        try{
+        try {
             data = File.readFile(path);
             valid = true;
-        } catch(IOException e){
+        } catch (IOException e) {
             System.out.println("Invalid File. Please try again.");
             valid = false;
-        } catch (Exception e){
+            Screen.enterPrompt();
+        } catch (Exception e) {
             System.out.println("An error occurred. Please try again.");
+            Screen.enterPrompt();
             valid = false;
         }
 
+        if(valid){
+            // Format Read File Data
+            for (int i = 0; i < GRID_SIZE; i++) {
+                for (int j = 0; j < GRID_SIZE; j++) {
+                    playerBoard[i][j] = data[PLAYER_BOARD_INDEX + i][j];
+                    enemyBoard[i][j] = data[ENEMY_BOARD_INDEX + i][j];
+                    playerShots[i][j] = data[PLAYER_SHOTS_INDEX + i][j];
+                    enemyShots[i][j] = data[ENEMY_SHOTS_INDEX + i][j];
+                }
+            }
 
-        // Format Read File Data
-        for(int i = 0; i < GRID_SIZE; i++){
-            for(int j = 0; j < GRID_SIZE; j++){
-                playerBoard[i][j] = data[PLAYER_BOARD_INDEX+i][j];
-                enemyBoard[i][j] = data[ENEMY_BOARD_INDEX+i][j];
-                playerShots[i][j] = data[PLAYER_SHOTS_INDEX+i][j];
-                enemyShots[i][j] = data[ENEMY_SHOTS_INDEX+i][j];
+            // Set All Ships hit count to their size for initalization (will then reduce to actual hits in following loops)
+            for (int i = 0; i < NUM_OF_SHIPS; i++) {
+                shipInfo[i][SHIP_HIT_INDEX] = shipInfo[i][SHIP_SIZE_INDEX];
+                shipInfo[i][SHIP_SUNK_INDEX] = NOT_SUNK;
+                shipInfoEnemy[i][SHIP_HIT_INDEX] = shipInfoEnemy[i][SHIP_SIZE_INDEX];
+                shipInfoEnemy[i][SHIP_SUNK_INDEX] = NOT_SUNK;
+            }
+
+            // Count Instances of Ship on Boards : PLAYER
+            for (String[] i : playerBoard) {
+                for (String j : i) {
+                    if (j.equals(Screen.DESTROYER)) {
+                        shipInfo[DESTROYER_INDEX][SHIP_HIT_INDEX]--;
+                    } else if (j.equals(Screen.CRUISER)) {
+                        shipInfo[CRUISER_INDEX][SHIP_HIT_INDEX]--;
+                    } else if (j.equals(Screen.SUBMARINE)) {
+                        shipInfo[SUBMARINE_INDEX][SHIP_HIT_INDEX]--;
+                    } else if (j.equals(Screen.BATTLESHIP)) {
+                        shipInfo[BATTLESHIP_INDEX][SHIP_HIT_INDEX]--;
+                    } else if (j.equals(Screen.CARRIER)) {
+                        shipInfo[CARRIER_INDEX][SHIP_HIT_INDEX]--;
+                    }
+
+                }
+            }
+
+            // Count Instances of Ship on Boards : ENEMY
+            for (String[] i : enemyBoard) {
+                for (String j : i) {
+                    if (j.equals(Screen.DESTROYER)) {
+                        shipInfoEnemy[DESTROYER_INDEX][SHIP_HIT_INDEX]--;
+                    } else if (j.equals(Screen.CRUISER)) {
+                        shipInfoEnemy[CRUISER_INDEX][SHIP_HIT_INDEX]--;
+                    } else if (j.equals(Screen.SUBMARINE)) {
+                        shipInfoEnemy[SUBMARINE_INDEX][SHIP_HIT_INDEX]--;
+                    } else if (j.equals(Screen.BATTLESHIP)) {
+                        shipInfoEnemy[BATTLESHIP_INDEX][SHIP_HIT_INDEX]--;
+                    } else if (j.equals(Screen.CARRIER)) {
+                        shipInfoEnemy[CARRIER_INDEX][SHIP_HIT_INDEX]--;
+                    }
+                }
             }
         }
 
-        // Count Instances of Ship on Boards : PLAYER
-        for(String[] i: playerBoard){
-            for(String j : i){
-                if(j.equals(Screen.DESTROYER)){
-                    shipInfo[DESTROYER_INDEX][SHIP_HIT_INDEX]++;
-                }
-                else if(j.equals(Screen.CRUISER)){
-                    shipInfo[CRUISER_INDEX][SHIP_HIT_INDEX]++;
-                }
-                else if(j.equals(Screen.SUBMARINE)){
-                    shipInfo[SUBMARINE_INDEX][SHIP_HIT_INDEX]++;
-                }
-                else if(j.equals(Screen.BATTLESHIP)){
-                    shipInfo[BATTLESHIP_INDEX][SHIP_HIT_INDEX]++;
-                }
-                else if(j.equals(Screen.CARRIER)){
-                    shipInfo[CARRIER_INDEX][SHIP_HIT_INDEX]++;
-                }
-            }
-        }
 
-        // Count Instances of Ship on Boards : ENEMY
-        for(String[] i: enemyBoard){
-            for(String j : i){
-                if(j.equals(Screen.DESTROYER)){
-                    shipInfoEnemy[DESTROYER_INDEX][SHIP_HIT_INDEX]++;
-                }
-                else if(j.equals(Screen.CRUISER)){
-                    shipInfoEnemy[CRUISER_INDEX][SHIP_HIT_INDEX]++;
-                }
-                else if(j.equals(Screen.SUBMARINE)){
-                    shipInfoEnemy[SUBMARINE_INDEX][SHIP_HIT_INDEX]++;
-                }
-                else if(j.equals(Screen.BATTLESHIP)){
-                    shipInfoEnemy[BATTLESHIP_INDEX][SHIP_HIT_INDEX]++;
-                }
-                else if(j.equals( Screen.CARRIER)){
-                    shipInfoEnemy[CARRIER_INDEX][SHIP_HIT_INDEX]++;
-                }
-            }
-        }
+
 
         // Compare Hit counts to Ship Size to determine if ship is sunk
-        for(int i = 0; i < NUM_OF_SHIPS; i++){
-            if(shipInfo[i][SHIP_HIT_INDEX] == shipInfo[i][SHIP_SIZE_INDEX]){
+        for (int i = 0; i < NUM_OF_SHIPS; i++) {
+            if (shipInfo[i][SHIP_HIT_INDEX] == shipInfo[i][SHIP_SIZE_INDEX]) {
                 shipInfo[i][SHIP_SUNK_INDEX] = IS_SUNK;
             }
-            if(shipInfoEnemy[i][SHIP_HIT_INDEX] == shipInfoEnemy[i][SHIP_SIZE_INDEX]){
+            if (shipInfoEnemy[i][SHIP_HIT_INDEX] == shipInfoEnemy[i][SHIP_SIZE_INDEX]) {
                 shipInfoEnemy[i][SHIP_SUNK_INDEX] = IS_SUNK;
             }
         }
 
-        if(!valid){
-            return;
+        if (!valid) {
+            success = false;
+        } else {
+            System.out.println("\nSAVE LOADED");
+            success = true;
+            Screen.enterPrompt();
         }
-        else{
-            System.out.println("LOADING...");
-        }
+
+        return success;
     }
 
     /**
@@ -312,7 +376,7 @@ public class Battleship {
      * String[][] enemyBoard - the enemy's board to manipulate.
      * String[][] playerShots - the player's shots to manipulate.
      * String[][] enemyShots - the enemy's shots to manipulate.
-     * int[][] shipInfo - the ship information to manipulate.
+     * int[][] shipInfoPlayer - the ship information to manipulate for player.
      * int[][] shipInfoEnemy - the enemy's ship information to manipulate.
      * boolean easyMode - whether the game is in easy mode.
      * -----
@@ -322,15 +386,33 @@ public class Battleship {
      * Description:
      * Controls the flow of one turn, including player and enemy turn. Is called by main() in a while loop.
      */
-    public static boolean turnSequence(String[][] playerBoard, String[][] enemyBoard, String[][]playerShots, String[][] enemyShots, int[][] shipInfo, int[][] shipInfoEnemy, boolean easyMode){
+    public static boolean turnSequence(String[][] playerBoard, String[][] enemyBoard, String[][]playerShots, String[][] enemyShots, int[][] shipInfoPlayer, int[][] shipInfoEnemy, boolean easyMode){
         // Declarations
         boolean gameOver = false;
+        int hitStatus = 0;
 
-        // Player Turn
-        Screen.playerTurn(playerBoard, enemyBoard, playerShots, shipInfo);
+        // Player Turn (Call Screen.playerTurn, give it enemy ship info to manipulate)
+        hitStatus = Screen.playerTurn(playerBoard, enemyBoard, playerShots, shipInfoEnemy, enemyShots);
+        if(hitStatus == -1){
+            gameOver = true;
+            Screen.loseScreen(playerBoard, enemyBoard);
+        }
+        // Check if Player Won
+        else if(checkWinLoss(shipInfoPlayer, shipInfoEnemy) == PLAYER_WIN){
+            gameOver = true;
+            Screen.winScreen();
+        }
 
-        // Enemy Turn
-        Enemy.enemyTurn(playerBoard, enemyShots, shipInfoEnemy, easyMode);
+        // Enemy Turn (Call Enemy.enemyTurn, give it player ship info to manipulate)
+        if(!gameOver){
+            Enemy.enemyTurn(playerBoard, enemyShots, shipInfoPlayer, easyMode);
+        }
+
+        // Check if enemy won (player lost)
+        if(checkWinLoss(shipInfoPlayer, shipInfoEnemy) == PLAYER_LOSE){
+            gameOver = true;
+            Screen.loseScreen(playerBoard, enemyBoard);
+        }
 
         // Return if game is over
         return gameOver;
@@ -420,7 +502,7 @@ public class Battleship {
     * -----
     * Parameters:
     * int ship - the ship to get the string of.
-     *  boolean fullName - whether to return the full name of the ship.
+    *  boolean fullName - whether to return the full name of the ship.
     * -----
     * Returns:
     * String - the String of the ship.
@@ -514,9 +596,21 @@ public class Battleship {
                 shipBoard[y][x] = Screen.MISS;
                 hitShipIndex = IS_MISS;
 
+                // If Enemy, output message saying the location of shot and miss. If player, do same
+                if(isPlayer){
+                    Screen.divider();
+                    System.out.printf("You missed at %s, %d\n", LETTERS[x], y +1);
+                    Screen.enterPrompt();
+                }
+                else{
+                    Screen.gameBoard(shipBoard, shotBoard, true);
+                    System.out.printf("Enemy missed at %s, %d\n", LETTERS[x], y +1);
+                    Screen.enterPrompt();
+                }
+
+
             }
             else{
-                //FIND THIS HERE
                 hitShipIndex = indexShipInteger(shipBoard[y][x]);
                 shipInfo[hitShipIndex][SHIP_HIT_INDEX]++;
 
@@ -526,8 +620,11 @@ public class Battleship {
                 // Give hit messages (player can see which ship was hit on their board, but player cannot see which ship was hit on enemy's board)
                 if (isPlayer) {
                     System.out.println("You hit one of your enemy's ships!");
+                    Screen.enterPrompt();
                 } else {
+                    Screen.gameBoard(shipBoard, shotBoard, true);
                     System.out.printf("The enemy hit your %s at %s, %d!\n", indexShipLetter(hitShipIndex, true), LETTERS[x], y + 1);
+                    Screen.enterPrompt();
                 }
 
                 // Check if Sunk now
@@ -537,8 +634,11 @@ public class Battleship {
                     // Sink messages
                     if (isPlayer) {
                         System.out.println("You sunk the enemy's " + indexShipLetter(hitShipIndex, true) + "!");
+                        Screen.enterPrompt();
                     } else {
+                        Screen.gameBoard(shipBoard, shotBoard, true);
                         System.out.println("The enemy sunk your " + indexShipLetter(hitShipIndex, true) + "!");
+                        Screen.enterPrompt();
                     }
                 }
             }
@@ -572,7 +672,7 @@ public class Battleship {
 
         // Check if shot is valid
         try{
-            if (!shotBoard[y][x].equals(Screen.HIT)|| !shotBoard[y][x].equals(Screen.MISS)){
+            if (!shotBoard[y][x].equals(Screen.HIT) && !shotBoard[y][x].equals(Screen.MISS)){
                 isValid = true;
             }
         }
@@ -610,5 +710,54 @@ public class Battleship {
             index = CARRIER_INDEX;
         }
         return index;
+    }
+
+    /**
+     * Method: checkWinLoss
+     * -----
+     * Parameters:
+     * int[][] shipInfoPlayer - the ship information to check if the game is over, and if player has won.
+     * int[][] shipInfoEnemy - the enemy's ship information to check if the game is over, and if the enemy has won.
+     * -----
+     * Returns:
+     * int - 0 if player has won, 1 if player has lost, -1 if game is not over.
+     * -----
+     * Description:
+     * Checks to see if either the player or the enemy has won, by comparing the other player's number of ships sunk to the total number of ships.
+     */
+    public static int checkWinLoss(int[][] shipInfoPlayer, int[][] shipInfoEnemy){
+        // Declarations
+        int winLoss = -1;
+        int playerLost = 0;
+        int enemyLost = 0;
+
+        // Count Enemy Sunk Ships
+        for(int[] i : shipInfoEnemy){
+            if(i[SHIP_SUNK_INDEX] == IS_SUNK){
+                enemyLost++;
+            }
+        }
+
+        // Count Player Sunk Ships
+        for(int[] i : shipInfoPlayer){
+            if(i[SHIP_SUNK_INDEX] == IS_SUNK){
+                playerLost++;
+            }
+        }
+
+        // Check if anyone won
+        if(playerLost >= NUM_OF_SHIPS){
+            winLoss = PLAYER_LOSE;
+        }
+        else if(enemyLost >= NUM_OF_SHIPS){
+            winLoss = PLAYER_WIN;
+        }
+        else{
+            winLoss = -1;
+        }
+
+        // Return Win/Loss
+        return winLoss;
+
     }
 }

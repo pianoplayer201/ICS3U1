@@ -8,8 +8,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Battleship.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Battleship.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Enemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Enemy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Screen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Screen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Battleship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Battleship.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/File.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/File.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -103,6 +106,9 @@
       <workItem from="1718219436214" duration="270000" />
       <workItem from="1718253161190" duration="714000" />
       <workItem from="1718290157449" duration="5620000" />
+      <workItem from="1718309644433" duration="595000" />
+      <workItem from="1718334955492" duration="1194000" />
+      <workItem from="1718370275524" duration="9172000" />
     </task>
     <servers />
   </component>
@@ -113,29 +119,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Screen.java</url>
-          <line>381</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/src/Battleship.java</url>
+          <line>614</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Battleship.java</url>
-          <line>507</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Battleship.java</url>
-          <line>570</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Battleship.java</url>
-          <line>510</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Screen.java</url>
-          <line>359</line>
-          <option name="timeStamp" value="5" />
+          <line>300</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
