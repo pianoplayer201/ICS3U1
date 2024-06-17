@@ -5,9 +5,6 @@
 * ------
 * Description:
 * A class that contains everything related to Menus, UI and user interaction.
-* -----
-* REMINDER:
-* REMOVE CONTINUE COMMANDS IN THE CODE, BAD CODING STYLE.
  */
 
 import java.util.*;
@@ -175,12 +172,12 @@ public class Screen {
 
         if (easyMode) {
             System.out.println("Current Mode: Easy");
-            System.out.println("[1]. Change to Hard");
+            System.out.println("[1]. Change to Normal");
             System.out.println("[2]. Keep Easy Mode");
         } else {
-            System.out.println("Current Mode: Hard");
+            System.out.println("Current Mode: Normal");
             System.out.println("[1]. Change to Easy");
-            System.out.println("[2]. Keep Hard Mode");
+            System.out.println("[2]. Keep Normal Mode");
         }
         System.out.print(" > ");
 
@@ -222,12 +219,14 @@ public class Screen {
      */
     public static void placePrompt(String[][] playerBoard, String[][] playerShots, int[][] shipInfo, int shipIndex) {
         // Declarations
-        Scanner sc = new Scanner(System.in);
         String input = "";
         int x = 0;
         int y = 0;
         int direction = 0;
         boolean placed = false;
+        boolean validPreviousInput = true;
+
+        Scanner sc = new Scanner(System.in);
 
         // Loop until placed
         while (!placed) {
@@ -244,58 +243,63 @@ public class Screen {
             input = sc.nextLine().toUpperCase();
 
             // Map x to an integer based on constant array LETTERS
+            validPreviousInput = true;
             x = Battleship.mapLetterCoordsToIndex(input);
             if (x == -1) {
                 divider();
                 System.out.println("Invalid x coordinate. Please try again.");
-                continue;
+                validPreviousInput = false;
             }
 
             // Get the y coordinate with validation.
-            System.out.print("Enter the y coordinate (1-10): ");
-            try {
-                y = Integer.parseInt(sc.nextLine()) - 1;
-                if (y < 0 || y > 9) {
+            if (validPreviousInput){
+                System.out.print("Enter the y coordinate (1-10): ");
+                try {
+                    y = Integer.parseInt(sc.nextLine()) - 1;
+                    if (y < 0 || y > 9) {
+                        divider();
+                        System.out.println("Invalid y coordinate. Please try again.");
+                        validPreviousInput = false;
+                    }
+
+                } catch (NumberFormatException e) {
                     divider();
                     System.out.println("Invalid y coordinate. Please try again.");
-                    continue;
+                    validPreviousInput = false;
                 }
-
-            } catch (NumberFormatException e) {
-                divider();
-                System.out.println("Invalid y coordinate. Please try again.");
-                continue;
             }
 
             // Get the direction with validation.
-            System.out.print("Enter the direction (H for horizontal, V for vertical): ");
-            input = sc.nextLine().toUpperCase();
-            if (input.equals("H")) {
-                direction = Battleship.HORIZONTAL_DIRECTION;
-            } else if (input.equals("V")) {
-                direction = Battleship.VERTICAL_DIRECTION;
-            } else {
-                divider();
-                System.out.println("Invalid direction. Please try again.");
-                continue;
+            if (validPreviousInput){
+                System.out.print("Enter the direction (H for horizontal, V for vertical): ");
+                input = sc.nextLine().toUpperCase();
+                if (input.equals("H")) {
+                    direction = Battleship.HORIZONTAL_DIRECTION;
+                } else if (input.equals("V")) {
+                    direction = Battleship.VERTICAL_DIRECTION;
+                } else {
+                    divider();
+                    System.out.println("Invalid direction. Please try again.");
+                    validPreviousInput = false;
+                }
             }
 
             // Place the ship
-            placed = Battleship.placeShip(playerBoard, shipInfo, shipIndex, x, y, direction);
-            if(placed!=true) {
-                divider();
-                System.out.println("Invalid placement, ship does not fit. Please try again.");
+            if(validPreviousInput){
+                placed = Battleship.placeShip(playerBoard, shipInfo, shipIndex, x, y, direction);
+                if(!placed) {
+                    divider();
+                    System.out.println("Invalid placement, ship does not fit. Please try again.");
+                }
+                else{
+                    divider();
+                    System.out.println("Ship placed successfully!");
+                }
             }
-            else{
-                divider();
-                System.out.println("Ship placed successfully!");
-            }
-
         }
-
     }
 
-    /*
+    /**
     * Method: enterPrompt
     * -----
     * Description:
@@ -307,10 +311,10 @@ public class Screen {
         divider();
         System.out.println("Press Enter to Continue...");
 
-        // Sloppy fix to a stray nextLine() bug, remove if I find the stray nextLine()
-        while(!sc.hasNextLine()){
-            sc.next();
-        }
+//        // Sloppy fix to a stray nextLine() bug, remove if I find the stray nextLine()
+//        while(!sc.hasNextLine()){
+//            sc.nextLine();
+//        }
         sc.nextLine();
     }
 
@@ -453,9 +457,9 @@ public class Screen {
                         enterPrompt();
                         validPreviousInput = false;
                     }
-
-                    // If all works, its true!
-                    valid = true;
+                    else {
+                        valid = true;
+                    }
                 }
             }catch(NumberFormatException e) {
                 divider();

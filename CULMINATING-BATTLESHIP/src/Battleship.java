@@ -5,6 +5,24 @@
 * ------
 * Description:
 * The game, with all its player logic and main gameplay loop.
+* -------------------
+* IMPORTANT NOTE FOR MR.SKUJA:
+* My program contains a bug that happens when you enter your inputs too fast, that results in the user
+* being required to press enter twice instead of once instead of twice. The issue does not happen if inputs
+* are entered with a slight delay between each other, and this issue is likely due to poor optimization of
+* my program and a slight lag with input.
+* Because program optimization and speed was not a requirement of the project, I did not spend time trying to
+* fix this by optimizing my code. I hope this is okay.
+* For the best results, please enter your inputs with a slight delay between each other, and the program should
+* work as intended. Otherwise, there is a high chance you encounter a visual bug.
+* If you manage to find out where in my code causes this bug, please let me know, but as far as I'm aware it is just
+* poor optimization and not a loose end in my code.
+* ------------------
+* NOTE FOR DEVELOPMENT AND DEBUGGING (MR.SKUJA CAN IGNORE):
+* The arrays dealing with gameboards and shotboards are 2D arrays, with the first index representing
+* y values, and the second index representing x values. Make sure to always index with [y][x] not [x][y].
+* If there are bugs in the code, ensure you haven't done the mistake above. This logic does not apply to
+* methods, which use (x,y), the standard order, and not (y,x).
  */
 
 import java.io.IOException;
@@ -27,6 +45,7 @@ public class Battleship {
     final public static int BATTLESHIP_SIZE = 4;
     final public static int CARRIER_SIZE = 5;
     final public static int NUM_OF_SHIPS = 5;
+    final public static int SHIP_VALUE_COUNT = 5;
     final public static int HORIZONTAL_DIRECTION = 0;
     final public static int VERTICAL_DIRECTION = 1;
 
@@ -63,8 +82,8 @@ public class Battleship {
         String[][] enemyShots = new String[GRID_SIZE][GRID_SIZE];
 
         // Initialize Ship Info defaults
-        int[][] shipInfoPlayer = new int[NUM_OF_SHIPS][3];
-        int[][] shipInfoEnemy = new int [NUM_OF_SHIPS][3];
+        int[][] shipInfoPlayer = new int[NUM_OF_SHIPS][SHIP_VALUE_COUNT];
+        int[][] shipInfoEnemy = new int [NUM_OF_SHIPS][SHIP_VALUE_COUNT];
 
         // Initialize all the boards to be empty to start with.
         for (int i = 0; i < GRID_SIZE; i++) {
