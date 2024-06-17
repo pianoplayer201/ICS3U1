@@ -600,7 +600,7 @@ public class Screen {
         for (int i = 0; i < Battleship.NUM_OF_SHIPS; i++) {
             playerSunk = playerShipsInfo[i][Battleship.SHIP_SUNK_INDEX] == Battleship.IS_SUNK;
             enemySunk = enemyShipsInfo[i][Battleship.SHIP_SUNK_INDEX] == Battleship.IS_SUNK;
-            System.out.printf("%-20S%s%-20S\n", Battleship.indexShipAsString(i, true) + ": " + (playerSunk ? "Sunk" : "Not Sunk"), SPACING, Battleship.indexShipAsString(i, true) + ": " + (playerSunk ? "Sunk" : "Not Sunk"));
+            System.out.printf("%-20S%s%-20S\n", Battleship.indexShipAsString(i, true) + ": " + (playerSunk ? "Sunk" : "Not Sunk"), SPACING, Battleship.indexShipAsString(i, true) + ": " + (enemySunk ? "Sunk" : "Not Sunk"));
         }
 
         divider();
