@@ -116,9 +116,6 @@ public class Battleship {
 
         }
 
-        //Other Object Declarations
-        Scanner sc = new Scanner(System.in);
-
         // Clone the player's ship info to the enemy's ship info using for loop
         for (int i = 0; i < NUM_OF_SHIPS; i++) {
             shipInfoEnemy[i][SHIP_SIZE_INDEX] = shipInfoPlayer[i][SHIP_SIZE_INDEX];
@@ -230,7 +227,7 @@ public class Battleship {
         boolean valid = false;
         boolean success = false;
 
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = Screen.scannerDeclare();
 
         // Output Screen, Get Path and Read File
         Screen.clearScreen();
@@ -345,7 +342,7 @@ public class Battleship {
     public static void saveGame(String[][] playerBoard, String[][] enemyBoard, String[][] playerShots, String[][] enemyShots){
         // Declarations
         String path = "";
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = Screen.scannerDeclare();
 
         // Output Screen, Get Path and Write File
         Screen.clearScreen();
@@ -411,7 +408,7 @@ public class Battleship {
         int hitStatus = 0;
 
         // Player Turn (Call Screen.playerTurn, give it enemy ship info to manipulate)
-        hitStatus = Screen.playerTurn(playerBoard, enemyBoard, playerShots, shipInfoEnemy, enemyShots);
+        hitStatus = Screen.playerTurn(playerBoard, enemyBoard, playerShots, shipInfoEnemy, shipInfoPlayer, enemyShots);
         if(hitStatus == -1){
             gameOver = true;
             Screen.loseScreen(playerBoard, enemyBoard);
@@ -502,13 +499,13 @@ public class Battleship {
             // Vertical Place
             if(direction == VERTICAL_DIRECTION){
                 for(int i = 0; i < shipSize; i++){
-                    board[shipY+i][shipX] = indexShipLetter(shipIndex, false);
+                    board[shipY+i][shipX] = indexShipAsString(shipIndex, false);
                 }
             }
             // Horizontal Place
             else{
                 for(int i = 0; i < shipSize; i++){
-                    board[shipY][shipX+i] = indexShipLetter(shipIndex, false);
+                    board[shipY][shipX+i] = indexShipAsString(shipIndex, false);
                 }
             }
         }
@@ -517,7 +514,7 @@ public class Battleship {
     }
 
     /**
-    * Method: indexShipLetter
+    * Method: indexShipAsString
     * -----
     * Parameters:
     * int ship - the ship to get the string of.
@@ -528,7 +525,7 @@ public class Battleship {
     * -----
     * Because I'm dumb and decided not to use enums for the ships, I have to use this method to get the string of the ship based on an index.
      */
-    public static String indexShipLetter(int ship, boolean fullName) {
+    public static String indexShipAsString(int ship, boolean fullName) {
         String index = "";
         switch (ship) {
             case DESTROYER_INDEX:
@@ -573,7 +570,6 @@ public class Battleship {
         for (int i = 0; i < LETTERS.length; i++) {
             if (LETTERS[i].equals(coordinates)) {
                 index = i;
-                break;
             }
         }
         return index;
@@ -642,8 +638,8 @@ public class Battleship {
                 }
                 else {
                     Screen.gameBoard(shipBoard, shotBoard, true);
-                    System.out.printf("The enemy hit your %s at %s, %d!\n", indexShipLetter(hitShipIndex, true), LETTERS[x], y + 1);
-                    Screen.clearConsoleInputStream();
+                    System.out.printf("The enemy hit your %s at %s, %d!\n", indexShipAsString(hitShipIndex, true), LETTERS[x], y + 1);
+                    Screen.scannerDeclare();
                 }
 
                 // Check if Sunk now
@@ -652,10 +648,10 @@ public class Battleship {
                     shipInfo[hitShipIndex][SHIP_SUNK_INDEX] = IS_SUNK;
                     // Sink messages
                     if (isPlayer) {
-                        System.out.println("You sunk the enemy's " + indexShipLetter(hitShipIndex, true) + "!");
+                        System.out.println("You sunk the enemy's " + indexShipAsString(hitShipIndex, true) + "!");
                     } else {
-                        System.out.println("The enemy sunk your " + indexShipLetter(hitShipIndex, true) + "!");
-                        Screen.clearConsoleInputStream();
+                        System.out.println("The enemy sunk your " + indexShipAsString(hitShipIndex, true) + "!");
+                        Screen.scannerDeclare();
                     }
                 }
 

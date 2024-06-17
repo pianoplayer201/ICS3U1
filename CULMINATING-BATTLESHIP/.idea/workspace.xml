@@ -7,7 +7,6 @@
     <list default="true" id="055762f7-978b-4b8d-92ee-73baf778e83b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Battleship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Battleship.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Enemy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,7 +51,7 @@
     "Attach to process.pid 2660.executor": "ProcessAttachDebug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "PC",
+    "git-widget-placeholder": "Laptop",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Desktop Files/Coding Projects/School/ICS3U1/CULMINATING-BATTLESHIP",
     "node.js.detected.package.eslint": "true",

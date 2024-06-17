@@ -7,7 +7,6 @@
 * A class that contains everything related to Menus, UI and user interaction.
  */
 
-import java.io.IOException;
 import java.util.*;
 
 public class Screen {
@@ -64,7 +63,7 @@ public class Screen {
     public static int mainMenu() {
         //Declarations
         int choice = 0;
-        Scanner input = new Scanner(System.in);
+        Scanner input = Screen.scannerDeclare();
         String inputString = "";
         boolean valid = false;
 
@@ -141,23 +140,32 @@ public class Screen {
     public static void instructions() {
 
         // Declaration
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = Screen.scannerDeclare();
         // Output
         clearScreen();
         System.out.println("INSTRUCTIONS");
+        divider();
         System.out.println("Battleship is a game where you place your ships on a 10x10 grid and try to sink the enemy's ships.");
-        System.out.println("The ships in the game are as follows:");
+        divider();
+        System.out.println("The ships in the game are as follows, each represented by a Letter indicator:");
         System.out.println("Carrier (A) - 5 spaces");
         System.out.println("Battleship (B) - 4 spaces");
         System.out.println("Submarine (S) - 3 spaces");
         System.out.println("Cruiser (C) - 3 spaces");
         System.out.println("Destroyer (D) - 2 spaces");
+        divider();
         System.out.println("You and the enemy will take turns firing shots at each other's boards.");
         System.out.println("If you hit a ship, it will be marked with an X. If you miss, it will be marked with an O.");
-        System.out.println("Empty spaces are marked with a -. These have nothing on them, and have never been hit.");
+        System.out.println("Empty spaces are marked with a -. These have nothing on them, and have never been hit before and are free to be hit.");
         System.out.println("The game ends when all of one player's ships are sunk.");
-        System.out.println("NOTE: Placing ships on the board always places them starting from the top left corner of the ship (ship goes to the right if horizontal, and down if vertical)");
-        System.out.println("Good luck!");
+        divider();
+        System.out.println("TIPS:");
+        System.out.println("- Placing ships on the board always places them starting from the top left corner of the ship \n(ship goes to the right if horizontal, and down if vertical");
+        System.out.println("- You can save your game at any time by entering S during your turn.");
+        System.out.println("- You can see how many ships are left to sink by entering ? during your turn.");
+        System.out.println("- The AI difficulty can be changed through the main menu (game defaults to easy).");
+        divider();
+        System.out.println("Good luck, and have fun!");
         enterPrompt();
     }
 
@@ -177,7 +185,7 @@ public class Screen {
         //  Declarations
         boolean easyMode = currentDifficulty;
         int choice = 0;
-        Scanner input = new Scanner(System.in);
+        Scanner input = Screen.scannerDeclare();
 
         //Display the menu
         clearScreen();
@@ -239,7 +247,7 @@ public class Screen {
         boolean placed = false;
         boolean validPreviousInput = true;
 
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = Screen.scannerDeclare();
 
         // Loop until placed
         while (!placed) {
@@ -248,7 +256,7 @@ public class Screen {
             gameBoard(playerBoard, playerShots, false);
 
             // Input Process
-            System.out.println("Place your " + Battleship.indexShipLetter(shipIndex, true) + " (" + shipInfo[shipIndex][Battleship.SHIP_SIZE_INDEX] + " spaces)");
+            System.out.println("Place your " + Battleship.indexShipAsString(shipIndex, true) + " (" + shipInfo[shipIndex][Battleship.SHIP_SIZE_INDEX] + " spaces)");
             divider();
 
             // Get the x coordinate with validation.
@@ -319,12 +327,19 @@ public class Screen {
     * A simple prompt that asks the user to continue. Used to pause the game and wait for the user to press enter, and to assess the situation.
      */
     public static void enterPrompt() {
-        Scanner sc = new Scanner(System.in);
+        // Declarations and reset inputstream
+        scannerDeclare();
+        Scanner sc = Screen.scannerDeclare();
+
+        // Output/Input/Prompt
         System.out.println();
         divider();
         System.out.print("Press Enter to Continue...");
-        clearConsoleInputStream();
-        sc.nextLine();
+        try{
+            sc.nextLine();
+        }catch(Exception e){
+            System.out.println("Error: " + e);
+        }
     }
 
     /*
@@ -346,6 +361,8 @@ public class Screen {
      * String[][] shotBoard - the board that contains the shots.
      * STring[][] enemyShots - the board that contains the enemy's shots, used for saving.
      * int[][] shipInfoEnemy - the information of all the enemy's ships to manipulate.
+     * int[][] shipInfoPlayer - the information of all the player's ships to see what is sunk and what is not.
+     * String[][] enemyShots - the enemy's shots to save if needed.
      * -----
      * Returns:
      * int - returns 1 if the player hit a ship, 0 if the player missed, and -1 if the player quit.
@@ -355,7 +372,7 @@ public class Screen {
      * The method calls upon Battleship.hitShip() to process the hit, and uses the return values from that method to determine if the hit was successful,
      * and whether or not this program needs to prompt the user again. Outputs the board as well.
      */
-    public static int playerTurn(String[][] playerBoard , String[][] enemyBoard, String[][] shotBoard, int[][] shipInfoEnemy, String[][] enemyShots){
+    public static int playerTurn(String[][] playerBoard , String[][] enemyBoard, String[][] shotBoard, int[][] shipInfoEnemy, int[][]shipInfoPlayer, String[][] enemyShots){
         // Declarations
         String input = "";
         int x = 0;
@@ -366,21 +383,22 @@ public class Screen {
         int hitStatus = 0;
         int hit = 0;
 
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = Screen.scannerDeclare();
 
         // Loop until a valid coordinate for shots are inputted (OR PLAYER CHOOSES TO EXIT)
         while(!valid && !quit){
             clearScreen();
             gameBoard(playerBoard, shotBoard, false);
 
-            System.out.println("Enter [S] to Save, or [Q] to Forfeit the game.");
+            System.out.println("Enter [S] to Save, or [Q] to Forfeit the game.\nEnter [?] to see how many ships are left to sink.");
             divider();
 
             // Input Process
             try{
                 // Get the x coordinate with validation.
                 System.out.print("Enter the x coordinate of your shot (A-J): ");
-                input = sc.nextLine().toUpperCase();
+                input = sc.nextLine();
+                input = input.toUpperCase();
 
                 // Check for S or Q
                 switch(input) {
@@ -400,6 +418,10 @@ public class Screen {
                         else{
                             quit = false;
                         }
+                        validPreviousInput = false;
+                        break;
+                    case "?":
+                        shipsSunkScreen(shipInfoPlayer, shipInfoEnemy);
                         validPreviousInput = false;
                         break;
                     default:
@@ -439,6 +461,10 @@ public class Screen {
                             } else {
                                 quit = false;
                             }
+                            validPreviousInput = false;
+                            break;
+                        case "?":
+                            shipsSunkScreen(shipInfoPlayer, shipInfoEnemy);
                             validPreviousInput = false;
                             break;
                         default:
@@ -537,17 +563,47 @@ public class Screen {
     }
 
     /**
-     * Method: clearConsoleInputStream
+     * Method: scannerDeclare
      * ------
      * Description:
-     * This method simply clears out the console's Scanner input, to avoid situations of double input.
-     * This method is a sloppy fix to a bug that hasn't been traced yet.
-     * This method is only called in areas where the bug is suspected to be triggered, currently right after an enemy gets a successful hit in Battleship.turnSequence().'
-     * NOTE: This method does nothing currently, and is a placeholder until a solution is found.
+     * Declares a new Scanner via method to avoid having untracked scanner calls leading to screwed up inputsteam.
+     * This method is called everywhere a scanner is needed.
      */
-    public static void clearConsoleInputStream(){
-        // Declarations
+    public static Scanner scannerDeclare(){
+        return new Scanner(System.in);
+    }
 
-        // Clear the input stream through some means (keeps changing to see what works)
+    /**
+     * method: shipsSunkScreen
+     * -----
+     * Parameters:
+     * int[][] playerShipsInfo - the information of the player's ships.
+     * int[][] enemyShipsInfo - the information of the enemy's ships.
+     * -----
+     * Description:
+     * Displays the list of both player and enemy ships that are left to sink. Called by Battleship.turnSequence() to show the player what ships are left to sink.
+     */
+    public static void shipsSunkScreen(int[][] playerShipsInfo, int[][] enemyShipsInfo) {
+
+        // Declarations
+        boolean playerSunk = true;
+        boolean enemySunk = true;
+
+        // Output Header
+        clearScreen();
+        divider();
+        System.out.println("Here is the Sunk Status of all player and enemy ships:");
+        divider();
+
+        System.out.printf("%-20S%s%-20S\n", "Player Ships:" , SPACING , "Enemy Ships:");
+        // Output ships for player and enemy
+        for (int i = 0; i < Battleship.NUM_OF_SHIPS; i++) {
+            playerSunk = playerShipsInfo[i][Battleship.SHIP_SUNK_INDEX] == Battleship.IS_SUNK;
+            enemySunk = enemyShipsInfo[i][Battleship.SHIP_SUNK_INDEX] == Battleship.IS_SUNK;
+            System.out.printf("%-20S%s%-20S\n", Battleship.indexShipAsString(i, true) + ": " + (playerSunk ? "Sunk" : "Not Sunk"), SPACING, Battleship.indexShipAsString(i, true) + ": " + (playerSunk ? "Sunk" : "Not Sunk"));
+        }
+
+        divider();
+        enterPrompt();
     }
 }
