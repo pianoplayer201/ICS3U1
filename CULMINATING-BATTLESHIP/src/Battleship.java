@@ -639,11 +639,9 @@ public class Battleship {
                 // Give hit messages (player can see which ship was hit on their board, but player cannot see which ship was hit on enemy's board)
                 if (isPlayer) {
                     System.out.println("You hit one of your enemy's ships!");
-                    Screen.enterPrompt();
                 } else {
                     Screen.gameBoard(shipBoard, shotBoard, true);
                     System.out.printf("The enemy hit your %s at %s, %d!\n", indexShipLetter(hitShipIndex, true), LETTERS[x], y + 1);
-                    Screen.enterPrompt();
                 }
 
                 // Check if Sunk now
@@ -653,13 +651,12 @@ public class Battleship {
                     // Sink messages
                     if (isPlayer) {
                         System.out.println("You sunk the enemy's " + indexShipLetter(hitShipIndex, true) + "!");
-                        Screen.enterPrompt();
                     } else {
-                        Screen.gameBoard(shipBoard, shotBoard, true);
                         System.out.println("The enemy sunk your " + indexShipLetter(hitShipIndex, true) + "!");
-                        Screen.enterPrompt();
                     }
                 }
+
+                Screen.enterPrompt();
             }
         }
         else{

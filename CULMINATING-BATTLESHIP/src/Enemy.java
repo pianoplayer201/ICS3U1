@@ -107,6 +107,7 @@ public class Enemy {
             Screen.clearScreen();
             Battleship.hitShip(playerBoard, enemyShots, shipInfo, x, y, false);
         }
+        // Take a shot (NORMAL MODE)
         else{
 
             // If the AI has no logic for next shots, generate a random shot
@@ -126,10 +127,6 @@ public class Enemy {
             }
 
             // GO hit
-            // DEBUG TEST: MAKE SURE AI HITS ME
-            x = 2;
-            y = 2;
-            // DEBUT TEST END
             Screen.clearScreen();
             Battleship.hitShip(playerBoard, enemyShots, shipInfo, x, y, false);
         }
@@ -154,7 +151,10 @@ public class Enemy {
             direction = normalAILogic(enemyShots, futureShots, x, y, direction, hit, sunk);
             // DEBUG TEST: PRINT ALL FUTURE SHOTS
             for(Point p : futureShots){
-                System.out.println(p.x + " " + p.y);
+                System.out.println("x: " + Battleship.LETTERS[p.x] + " " + "y: " + (p.y + 1));
+            }
+            if(futureShots.isEmpty()){
+                System.out.println("RANDOM SHOTS");
             }
             // DEBUG TEST END
         }
@@ -196,8 +196,6 @@ public class Enemy {
 
         // Check to see if the AI has no future shots (default to UP) or if the ship was sunk (return to random shtos)
         if((futureShots.isEmpty() && hit)){
-            shot.translate(UP_POINT.x, UP_POINT.y);
-            futureShots.add(new Point(shot.x, shot.y));
             direction = UP_DIR;
         }
         else if(sunk){
@@ -214,44 +212,47 @@ public class Enemy {
 
         // Direction Logic: If the AI is going up, check if the last shot was a hit or miss. If hit, check if enemy can continue going up and do so.
         // If the AI can't go up anymore, change the direction to down. The ai continues this logic for all directions in the order Up, Down, Left, Right
-        if(direction == UP_DIR){
-            if(hit && Battleship.checkValidShot(enemyShots, shot.x, shot.y + UP_POINT.y)){;
-                shot.translate(UP_POINT.x, UP_POINT.y);
-                futureShots.add(new Point(shot.x, shot.y));
-                direction = UP_DIR;
+        if(!sunk){
+            if(direction == UP_DIR){
+                if(hit && Battleship.checkValidShot(enemyShots, shot.x, shot.y + UP_POINT.y)){;
+                    shot.translate(UP_POINT.x, UP_POINT.y);
+                    futureShots.add(new Point(shot.x, shot.y));
+                    direction = UP_DIR;
+                }
+                else{
+                    direction = DOWN_DIR;
+                }
             }
-            else{
-                direction = DOWN_DIR;
-            }
-        }
-        if(direction == DOWN_DIR) {
+            if(direction == DOWN_DIR) {
             if (hit && Battleship.checkValidShot(enemyShots, shot.x, shot.y + DOWN_POINT.y)) {
                 shot.translate(DOWN_POINT.x, DOWN_POINT.y);
                 futureShots.add(new Point(shot.x, shot.y));
             } else {
                 direction = LEFT_DIR;
             }
+            }
+            if(direction == LEFT_DIR){
+                if(hit && Battleship.checkValidShot(enemyShots, shot.x + LEFT_POINT.x, shot.y)){
+                    shot.translate(LEFT_POINT.x, LEFT_POINT.y);
+                    futureShots.add(new Point(shot.x, shot.y));
+                    direction = LEFT_DIR;
+                }
+                else{
+                    direction = RIGHT_DIR;
+                }
+            }
+            if(direction == RIGHT_DIR){
+                if(hit && Battleship.checkValidShot(enemyShots, shot.x + RIGHT_POINT.x, shot.y)){
+                    shot.translate(RIGHT_POINT.x, RIGHT_POINT.y);
+                    futureShots.add(new Point(shot.x, shot.y));
+                    direction = RIGHT_DIR;
+                }
+                else{
+                    direction = UP_DIR;
+                }
+            }
         }
-        if(direction == LEFT_DIR){
-            if(hit && Battleship.checkValidShot(enemyShots, shot.x + LEFT_POINT.x, shot.y)){
-                shot.translate(LEFT_POINT.x, LEFT_POINT.y);
-                futureShots.add(new Point(shot.x, shot.y));
-                direction = LEFT_DIR;
-            }
-            else{
-                direction = RIGHT_DIR;
-            }
-        }
-        if(direction == RIGHT_DIR){
-            if(hit && Battleship.checkValidShot(enemyShots, shot.x + RIGHT_POINT.x, shot.y)){
-                shot.translate(RIGHT_POINT.x, RIGHT_POINT.y);
-                futureShots.add(new Point(shot.x, shot.y));
-                direction = RIGHT_DIR;
-            }
-            else{
-                direction = UP_DIR;
-            }
-        }
+
 
         // Return the resulting direction
         return direction;

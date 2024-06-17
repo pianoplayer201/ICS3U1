@@ -7,6 +7,7 @@
 * A class that contains everything related to Menus, UI and user interaction.
  */
 
+import java.io.IOException;
 import java.util.*;
 
 public class Screen {
@@ -59,30 +60,36 @@ public class Screen {
         int choice = 0;
         Scanner input = new Scanner(System.in);
         String inputString = "";
+        boolean valid = false;
 
-        //Display the menu
-        clearScreen();
-        System.out.println("MAIN MENU");
-        System.out.println("[1]. New Game");
-        System.out.println("[2]. Load Game");
-        System.out.println("[3]. Instructions");
-        System.out.println("[4]. Change Difficulty");
-        System.out.println("[5]. Exit");
-        System.out.print(" > ");
 
-        //Get the choice
-        try {
-            inputString = input.nextLine();
-            choice = Integer.parseInt(inputString);
-            if (choice < 1 || choice > 5) {
+        while(!valid){
+            //Display the menu
+            clearScreen();
+            System.out.println("MAIN MENU");
+            System.out.println("[1]. New Game");
+            System.out.println("[2]. Load Game");
+            System.out.println("[3]. Instructions");
+            System.out.println("[4]. Change Difficulty");
+            System.out.println("[5]. Exit");
+            System.out.print(" > ");
+
+            //Get the choice
+            try {
+                inputString = input.nextLine();
+                choice = Integer.parseInt(inputString);
+                valid = true;
+
+                if (choice < 1 || choice > 5) {
+                    divider();
+                    System.out.println("Invalid choice. Please enter to try again.");
+                    valid = false;
+                }
+            } catch (NumberFormatException e) {
                 divider();
                 System.out.println("Invalid choice. Please enter to try again.");
-                choice = mainMenu();
+                valid = false;
             }
-        } catch (NumberFormatException e) {
-            divider();
-            System.out.println("Invalid choice. Please enter to try again.");
-            choice = mainMenu();
         }
 
         //Return the choice
@@ -311,10 +318,15 @@ public class Screen {
         divider();
         System.out.println("Press Enter to Continue...");
 
-//        // Sloppy fix to a stray nextLine() bug, remove if I find the stray nextLine()
-//        while(!sc.hasNextLine()){
-//            sc.nextLine();
+        //Sloppy fix to a stray nextLine() bug, remove if I find the stray nextLine()
+//        try{
+//            {
+//                System.in.skip(1000);
+//            }
+//        } catch (IOException e) {
+//            System.out.println("UH OH");
 //        }
+
         sc.nextLine();
     }
 
