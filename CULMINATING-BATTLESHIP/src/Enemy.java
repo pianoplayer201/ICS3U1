@@ -23,7 +23,7 @@ public class Enemy {
     // Protected Variables to keep track of the AI's state across turns, which would be reset otherwise if they were local variables in enemyTurn().
     static protected ArrayList<Point > futureShots = new ArrayList<Point>(); // Arraylist to store future shots for NORMAL AI
     static protected int direction = NO_DIR; // Direction of the last hit for NORMAL AI. Starts with NO_DIR if random shot was taken.
-
+    static protected Point shipDetectHit = new Point(-1, -1); // Point to store the first hit an AI makes on a ship, to then have the AI go in each direction based on that point.
 
 
     /**
@@ -104,14 +104,13 @@ public class Enemy {
             } while(!valid);
 
             // GO hit!
-            Screen.clearScreen();
             Battleship.hitShip(playerBoard, enemyShots, shipInfo, x, y, false);
         }
         // Take a shot (NORMAL MODE)
         else{
 
             // If the AI has no logic for next shots, generate a random shot
-            if(futureShots.isEmpty()){
+            if(futureShots.isEmpty() || direction == NO_DIR){
                 do{
                     x = randomizer.nextInt(Battleship.GRID_SIZE);
                     y = randomizer.nextInt(Battleship.GRID_SIZE);
@@ -127,7 +126,6 @@ public class Enemy {
             }
 
             // GO hit
-            Screen.clearScreen();
             Battleship.hitShip(playerBoard, enemyShots, shipInfo, x, y, false);
         }
 
@@ -140,21 +138,23 @@ public class Enemy {
         if(!easyMode){
             // Compare the count of the two shipInfo arrays to determine if a ship was sunk
             for(int i = 0; i < shipInfo.length; i++){
-                for(int j = 0; j < shipInfo[0].length; j++){
-                    if(shipInfo[i][j] != shipInfoBeforeHit[i][j]){
-                        sunk = true;
-                    }
+                if(shipInfo[i][Battleship.SHIP_SUNK_INDEX] != shipInfoBeforeHit[i][Battleship.SHIP_SUNK_INDEX]){
+                    sunk = true;
                 }
             }
 
             // Call the normalAILogic method to determine the next shot, while also updating the direction variable.
             direction = normalAILogic(enemyShots, futureShots, x, y, direction, hit, sunk);
+
             // DEBUG TEST: PRINT ALL FUTURE SHOTS
             for(Point p : futureShots){
-                System.out.println("x: " + Battleship.LETTERS[p.x] + " " + "y: " + (p.y + 1));
+                System.out.println(Battleship.LETTERS[p.x] + "," + "" + (p.y + 1));
             }
-            if(futureShots.isEmpty()){
+            if(direction == NO_DIR){
                 System.out.println("RANDOM SHOTS");
+            }
+            else{
+                System.out.println("Direction: " + direction);
             }
             // DEBUG TEST END
         }
@@ -194,14 +194,20 @@ public class Enemy {
         final Point RIGHT_POINT = new Point(1, 0);
         Point shot = new Point(x, y);
 
-        // Check to see if the AI has no future shots (default to UP) or if the ship was sunk (return to random shtos)
-        if((futureShots.isEmpty() && hit)){
+        // Check to see if this is the first time the AI has hit this ship, and if so, set the direction to UP and record where the first shot was.
+        if((futureShots.isEmpty() && hit && !sunk && direction == NO_DIR)){
             direction = UP_DIR;
+            shipDetectHit = new Point(x, y);
+            shot = new Point(shipDetectHit.x, shipDetectHit.y);
         }
-        else if(sunk){
+
+        // If a ship is sunk, reset the AI to random.
+        if(sunk){
             futureShots.clear();
             futureShots.trimToSize();
             direction = NO_DIR;
+            // DEBUG
+            System.out.println("SUNK");
         }
 
         // MR.SKUJA NOTE: I'm aware that this is not a good if block. I would've used else-ifs, but I needed to ensure
@@ -212,7 +218,8 @@ public class Enemy {
 
         // Direction Logic: If the AI is going up, check if the last shot was a hit or miss. If hit, check if enemy can continue going up and do so.
         // If the AI can't go up anymore, change the direction to down. The ai continues this logic for all directions in the order Up, Down, Left, Right
-        if(!sunk){
+        // The values of hit and shot are updated during a change of direction to ensure the AI checks from the first hit point.
+        else if(direction != NO_DIR){
             if(direction == UP_DIR){
                 if(hit && Battleship.checkValidShot(enemyShots, shot.x, shot.y + UP_POINT.y)){;
                     shot.translate(UP_POINT.x, UP_POINT.y);
@@ -221,15 +228,20 @@ public class Enemy {
                 }
                 else{
                     direction = DOWN_DIR;
+                    shot = new Point(shipDetectHit.x, shipDetectHit.y);
+                    hit = true;
                 }
             }
             if(direction == DOWN_DIR) {
-            if (hit && Battleship.checkValidShot(enemyShots, shot.x, shot.y + DOWN_POINT.y)) {
-                shot.translate(DOWN_POINT.x, DOWN_POINT.y);
-                futureShots.add(new Point(shot.x, shot.y));
-            } else {
-                direction = LEFT_DIR;
-            }
+                if (hit && Battleship.checkValidShot(enemyShots, shot.x, shot.y + DOWN_POINT.y)) {
+                    shot.translate(DOWN_POINT.x, DOWN_POINT.y);
+                    futureShots.add(new Point(shot.x, shot.y));
+                    direction = DOWN_DIR;
+                } else {
+                    direction = LEFT_DIR;
+                    shot = new Point(shipDetectHit.x, shipDetectHit.y);
+                    hit = true;
+                }
             }
             if(direction == LEFT_DIR){
                 if(hit && Battleship.checkValidShot(enemyShots, shot.x + LEFT_POINT.x, shot.y)){
@@ -239,6 +251,8 @@ public class Enemy {
                 }
                 else{
                     direction = RIGHT_DIR;
+                    shot = new Point(shipDetectHit.x, shipDetectHit.y);
+                    hit = true;
                 }
             }
             if(direction == RIGHT_DIR){
@@ -248,7 +262,7 @@ public class Enemy {
                     direction = RIGHT_DIR;
                 }
                 else{
-                    direction = UP_DIR;
+                    direction = NO_DIR;
                 }
             }
         }

@@ -32,17 +32,23 @@ public class Screen {
      * Clears the screen, used to make new frames.
      */
     public static void clearScreen() {
-        try {
-            final String os = System.getProperty("os.name");
 
-            if (os.contains("Windows")) {
-                Runtime.getRuntime().exec("cls");
-            } else {
-                Runtime.getRuntime().exec("clear");
-            }
-        } catch (Exception e) {
-            System.out.println("\n".repeat(16));
-        }
+        // Use this to clear screen. The OS method didn't work.
+
+//        try {
+//            final String os = System.getProperty("os.name");
+//
+//            if (os.contains("Windows")) {
+//                Runtime.getRuntime().exec("cls");
+//            } else {
+//                Runtime.getRuntime().exec("clear");
+//            }
+//        } catch (Exception e) {
+//            System.out.println("\n".repeat(16));
+//        }
+
+        // Clear it the old fashioned way
+        System.out.println("\n".repeat(16));
 
     }
 
@@ -316,17 +322,8 @@ public class Screen {
         Scanner sc = new Scanner(System.in);
         System.out.println();
         divider();
-        System.out.println("Press Enter to Continue...");
-
-        //Sloppy fix to a stray nextLine() bug, remove if I find the stray nextLine()
-//        try{
-//            {
-//                System.in.skip(1000);
-//            }
-//        } catch (IOException e) {
-//            System.out.println("UH OH");
-//        }
-
+        System.out.print("Press Enter to Continue...");
+        clearConsoleInputStream();
         sc.nextLine();
     }
 
@@ -537,5 +534,20 @@ public class Screen {
         System.out.println("You can see where the enemy's ships were placed on the board to the right.");
         System.out.println("You will now be returned to the main menu.");
         enterPrompt();
+    }
+
+    /**
+     * Method: clearConsoleInputStream
+     * ------
+     * Description:
+     * This method simply clears out the console's Scanner input, to avoid situations of double input.
+     * This method is a sloppy fix to a bug that hasn't been traced yet.
+     * This method is only called in areas where the bug is suspected to be triggered, currently right after an enemy gets a successful hit in Battleship.turnSequence().'
+     * NOTE: This method does nothing currently, and is a placeholder until a solution is found.
+     */
+    public static void clearConsoleInputStream(){
+        // Declarations
+
+        // Clear the input stream through some means (keeps changing to see what works)
     }
 }
