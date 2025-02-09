@@ -87,13 +87,15 @@ public class Screen {
 
                 if (choice < 1 || choice > 5) {
                     divider();
-                    System.out.println("Invalid choice. Please enter to try again.");
+                    System.out.println("INVALID CHOICE: Please try again");
                     valid = false;
+                    enterPrompt();
                 }
             } catch (NumberFormatException e) {
                 divider();
-                System.out.println("Invalid choice. Please enter to try again.");
+                System.out.println("INVALID CHOICE: Please try again");
                 valid = false;
+                enterPrompt();
             }
         }
 
@@ -528,6 +530,7 @@ public class Screen {
      */
     public static void winScreen() {
         clearScreen();
+        divider();
         System.out.println("Congratulations! You have won the game by sinking all of the enemy's ships!");
         enterPrompt();
     }
@@ -557,6 +560,7 @@ public class Screen {
 
         // Output Message
         System.out.println("You have lost the game! Better luck next time!");
+        divider();
         System.out.println("You can see where the enemy's ships were placed on the board to the right.");
         System.out.println("You will now be returned to the main menu.");
         enterPrompt();

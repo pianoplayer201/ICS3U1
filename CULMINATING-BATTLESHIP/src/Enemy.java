@@ -145,18 +145,6 @@ public class Enemy {
 
             // Call the normalAILogic method to determine the next shot, while also updating the direction variable.
             direction = normalAILogic(enemyShots, futureShots, x, y, direction, hit, sunk);
-
-            // DEBUG TEST: PRINT ALL FUTURE SHOTS
-            for(Point p : futureShots){
-                System.out.println(Battleship.LETTERS[p.x] + "," + "" + (p.y + 1));
-            }
-            if(direction == NO_DIR){
-                System.out.println("RANDOM SHOTS");
-            }
-            else{
-                System.out.println("Direction: " + direction);
-            }
-            // DEBUG TEST END
         }
 
         return hit;
@@ -206,8 +194,6 @@ public class Enemy {
             futureShots.clear();
             futureShots.trimToSize();
             direction = NO_DIR;
-            // DEBUG
-            System.out.println("SUNK");
         }
 
         // MR.SKUJA NOTE: I'm aware that this is not a good if block. I would've used else-ifs, but I needed to ensure

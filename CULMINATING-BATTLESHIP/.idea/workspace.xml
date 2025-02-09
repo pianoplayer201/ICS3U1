@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="055762f7-978b-4b8d-92ee-73baf778e83b" name="Changes" comment="" />
+    <list default="true" id="055762f7-978b-4b8d-92ee-73baf778e83b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Battleship.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Battleship.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Enemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Enemy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Screen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CULMINATING-BATTLESHIP/Screen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Battleship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Battleship.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screen.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,30 +49,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Battleship.executor&quot;: &quot;Run&quot;,
-    &quot;Attach to process.pid 2660.executor&quot;: &quot;ProcessAttachDebug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Laptop&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Desktop Files/Coding Projects/School/ICS3U1/CULMINATING-BATTLESHIP&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.github.copilot.settings.ApplicationConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.Battleship.executor": "Debug",
+    "Attach to process.pid 2660.executor": "ProcessAttachDebug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/habib/Documents/Coding Projects/CCC2024",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
       </set>
     </attachedChunks>
   </component>
@@ -105,22 +115,48 @@
       <workItem from="1718571035000" duration="12535000" />
       <workItem from="1718585572591" duration="7102000" />
       <workItem from="1718592837758" duration="8318000" />
+      <workItem from="1718643095422" duration="1068000" />
+      <workItem from="1718646679903" duration="672000" />
+      <workItem from="1718676347190" duration="611000" />
+      <workItem from="1718677401890" duration="354000" />
+      <workItem from="1718677882052" duration="1260000" />
+      <workItem from="1718715761376" duration="65000" />
+      <workItem from="1718716005862" duration="1237000" />
+      <workItem from="1725414637134" duration="387000" />
+      <workItem from="1725744049931" duration="175000" />
+      <workItem from="1727117349216" duration="24000" />
+      <workItem from="1727117396228" duration="247000" />
+      <workItem from="1732956411739" duration="12000" />
+      <workItem from="1732956449182" duration="36000" />
+      <workItem from="1738621513540" duration="542000" />
+      <workItem from="1738637059728" duration="58000" />
+      <workItem from="1738637155907" duration="521000" />
+      <workItem from="1738637703757" duration="186000" />
+      <workItem from="1738637906953" duration="258000" />
+      <workItem from="1739068293411" duration="82000" />
+      <workItem from="1739081792573" duration="3000" />
+      <workItem from="1739081812953" duration="44000" />
+      <workItem from="1739081874861" duration="161000" />
+      <workItem from="1739082057943" duration="33000" />
+      <workItem from="1739082108071" duration="79000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Enemy.java</url>
-          <line>200</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="java.awt.Point" memberName="x" />

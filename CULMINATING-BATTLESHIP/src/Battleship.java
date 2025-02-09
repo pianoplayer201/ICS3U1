@@ -4,25 +4,8 @@
 * Date Created: May 28, 2024
 * ------
 * Description:
-* The game, with all its player logic and main gameplay loop.
-* -------------------
-* IMPORTANT NOTE FOR MR.SKUJA:
-* My program contains a bug that happens when you enter your inputs too fast, that results in the user
-* being required to press enter twice instead of once instead of twice. The issue does not happen if inputs
-* are entered with a slight delay between each other, and this issue is likely due to poor optimization of
-* my program and a slight lag with input.
-* Because program optimization and speed was not a requirement of the project, I did not spend time trying to
-* fix this by optimizing my code. I hope this is okay.
-* For the best results, please enter your inputs with a slight delay between each other, and the program should
-* work as intended. Otherwise, there is a high chance you encounter a visual bug.
-* If you manage to find out where in my code causes this bug, please let me know, but as far as I'm aware it is just
-* poor optimization and not a loose end in my code.
+* The game, with all its player logic and main gameplay loop. This class is the main class that controls the flow of the game.
 * ------------------
-* NOTE FOR DEVELOPMENT AND DEBUGGING (MR.SKUJA CAN IGNORE):
-* The arrays dealing with gameboards and shotboards are 2D arrays, with the first index representing
-* y values, and the second index representing x values. Make sure to always index with [y][x] not [x][y].
-* If there are bugs in the code, ensure you haven't done the mistake above. This logic does not apply to
-* methods, which use (x,y), the standard order, and not (y,x).
  */
 
 import java.io.IOException;
@@ -231,7 +214,7 @@ public class Battleship {
 
         // Output Screen, Get Path and Read File
         Screen.clearScreen();
-        System.out.println("Enter the path of the save file (.txt included): ");
+        System.out.println("Enter the path of the save file (file extension included): ");
         System.out.print(" > ");
         path = sc.nextLine();
 
@@ -346,7 +329,7 @@ public class Battleship {
 
         // Output Screen, Get Path and Write File
         Screen.clearScreen();
-        System.out.println("Enter the filename you want to save to (.txt included): ");
+        System.out.println("Enter the filename you want to save to (file extension included): ");
         System.out.print(" > ");
         path = sc.nextLine();
 
@@ -622,8 +605,6 @@ public class Battleship {
                     System.out.printf("Enemy missed at %s, %d\n", LETTERS[x], y +1);
                     Screen.enterPrompt();
                 }
-
-
             }
             else{
                 hitShipIndex = indexShipInteger(shipBoard[y][x]);
@@ -648,8 +629,10 @@ public class Battleship {
                     shipInfo[hitShipIndex][SHIP_SUNK_INDEX] = IS_SUNK;
                     // Sink messages
                     if (isPlayer) {
+                        Screen.divider();
                         System.out.println("You sunk the enemy's " + indexShipAsString(hitShipIndex, true) + "!");
                     } else {
+                        Screen.divider();
                         System.out.println("The enemy sunk your " + indexShipAsString(hitShipIndex, true) + "!");
                         Screen.scannerDeclare();
                     }

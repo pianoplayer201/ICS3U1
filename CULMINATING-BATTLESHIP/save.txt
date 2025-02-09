@@ -1,14 +1,14 @@
 Player ships:
-D-O--O--O-
-D------O--
---C-------
---C-------
---C-S--O--
-----S-----
-----S--O--
---AAAAA---
-O---------
-BXBB------
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+BXXXXXXXXX
 CPU ships:
 OO-O------
 ----------
@@ -32,13 +32,13 @@ XXXO------
 ----------
 ----------
 CPU shots:
---O--O--O-
--------O--
-----------
-----------
--------O--
-----------
--------O--
-----------
-O---------
--X--------
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+-XXXXXXXXX
